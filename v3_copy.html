@@ -1,0 +1,2249 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЦИФРОХОД — Бизнес-круиз 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --primary: #E7F0AF;
+  --bg: #0D0D0D;
+  --bg-alt: #0A0A0A;
+  --neutral: #FFFFFF;
+  --text-dim: rgba(255,255,255,0.55);
+  --text-muted: rgba(255,255,255,0.35);
+  --line: rgba(255,255,255,0.12);
+  --line-strong: rgba(255,255,255,0.25);
+
+  --font-head: 'Hanken Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--neutral);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { display: block; max-width: 100%; }
+
+/* ============== UTIL ============== */
+.mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.section {
+  position: relative;
+  border-top: 1px solid var(--line);
+  padding: 96px 64px;
+}
+
+.section::before {
+  /* left rail line */
+  content: "";
+  position: absolute;
+  left: 64px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.section::after {
+  /* right rail line */
+  content: "";
+  position: absolute;
+  right: 64px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+  pointer-events: none;
+}
+
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 64px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-tag .dash {
+  width: 16px;
+  height: 1px;
+  background: var(--primary);
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(48px, 6vw, 96px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--neutral);
+  margin-left: auto;
+  text-align: right;
+}
+
+.section-title em {
+  font-style: normal;
+  color: var(--primary);
+}
+
+@media (max-width: 800px) {
+  .section { padding: 56px 24px; }
+  .section::before { left: 24px; }
+  .section::after { right: 24px; }
+  .section-head { grid-template-columns: 1fr; }
+  .section-title { text-align: left; }
+}
+
+/* ============== NAV ============== */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(13,13,13,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  padding: 18px 64px;
+  gap: 32px;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--primary);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.nav-logo img {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 28px;
+  justify-content: center;
+}
+
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-dim);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--primary); }
+
+.nav-cta {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.01em;
+  color: var(--bg);
+  background: var(--primary);
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.nav-cta:hover { background: var(--neutral); }
+
+@media (max-width: 900px) {
+  .nav { grid-template-columns: auto auto; padding: 14px 24px; }
+  .nav-links { display: none; }
+}
+
+/* ============== HERO ============== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(255,253,192,0.04), transparent 24%),
+    linear-gradient(to bottom, #121212 0%, #0d0d0d 56%, #090909 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 118px 64px 28px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.hero::before { left: 64px; }
+.hero::after { right: 64px; }
+
+/* corner cross marks */
+.hero-corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+.hero-corner::before, .hero-corner::after {
+  content: "";
+  position: absolute;
+  background: var(--primary);
+}
+.hero-corner::before {
+  left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%);
+}
+.hero-corner::after {
+  top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%);
+}
+.hero-corner.tl { top: 92px; left: 56px; }
+.hero-corner.tr { top: 92px; right: 56px; }
+.hero-corner.bl { bottom: 32px; left: 56px; }
+.hero-corner.br { bottom: 32px; right: 56px; }
+
+.hero-date {
+  position: relative;
+  top: -10px;
+  z-index: 6;
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.3vw, 20px);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: rgba(255,255,255,0.88);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.hero-center {
+  position: relative;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 22px;
+  width: min(100%, 1080px);
+  max-width: 1080px;
+  padding-top: 28px;
+  transform: translateY(-50px);
+}
+
+.hero-logo-img {
+  width: clamp(250px, 54vw, 680px);
+  height: auto;
+  filter: drop-shadow(0 16px 50px rgba(0,0,0,0.32));
+}
+
+.hero-desc {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(15px, 1.22vw, 18px);
+  line-height: 1.6;
+  color: rgba(255,255,255,0.86);
+  max-width: 560px;
+  margin-top: -6px;
+  text-wrap: balance;
+  text-shadow: 0 8px 28px rgba(0,0,0,0.42);
+}
+
+.hero-actions {
+  margin-top: 16px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.btn {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.005em;
+  border: none;
+  padding: 16px 28px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--bg);
+}
+.btn-primary:hover { background: var(--neutral); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--neutral);
+  border: 1px solid var(--line-strong);
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+
+.btn .arrow svg { display: block; }
+
+/* waves layer — text waves SVG positioned on the right with gradient fade-to-black */
+.hero-waves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-waves-svg {
+  position: absolute;
+  right: calc(-22% - 30px);
+  top: 100%;
+  transform: translateY(-72%);
+  height: 110%;
+  width: auto;
+  max-width: none;
+  -webkit-mask-image:
+    linear-gradient(to left, transparent 0%, black 12%, black 60%, transparent 100%),
+    radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
+  mask-image:
+    linear-gradient(to left, transparent 0%, black 12%, black 60%, transparent 100%),
+    radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  opacity: 0.95;
+  animation: wave-drift 15s ease-in-out infinite;
+}
+
+@keyframes wave-drift {
+  0%, 100% { transform: translateY(-72%) translateX(0) rotate(0) scale(1); }
+  50% { transform: translateY(-68%) translateX(-24px) rotate(-1deg) scale(1.03); }
+}
+
+@media (max-width: 900px) {
+  .hero-waves { opacity: 0.4; }
+  .hero-waves-svg { right: -45%; height: 90%; }
+}
+
+/* scroll cue */
+.hero-scroll {
+  margin-top: 56px;
+  padding-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  z-index: 5;
+  position: relative;
+  animation: bounce 2.4s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (max-width: 800px) {
+  .hero { padding: 72px 24px 18px; min-height: 92vh; }
+  .hero::before { left: 24px; }
+  .hero::after { right: 24px; }
+  .hero-corner.tl, .hero-corner.bl { left: 16px; }
+  .hero-corner.tr, .hero-corner.br { right: 16px; }
+  .hero-date { margin-bottom: 20px; font-size: 13px; }
+  .hero-center { gap: 16px; padding-top: 50px; }
+  .hero-logo-img { width: min(76vw, 380px); }
+  .hero-desc { max-width: 330px; font-size: 14px; }
+  .hero-actions { gap: 10px; }
+  .hero-scroll { margin-top: 34px; }
+}
+
+/* ============== WHAT ============== */
+.what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-bottom: 64px;
+}
+
+.stat {
+  position: relative;
+  padding: 44px 32px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--bg);
+  transition: background 0.4s;
+}
+
+.stat:hover { background: var(--bg-alt); }
+
+.stat-idx {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.stat-num {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(80px, 9vw, 132px);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--neutral);
+}
+
+.stat-num .unit {
+  font-size: 0.28em;
+  color: var(--text-dim);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-left: 8px;
+}
+
+.stat-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 300px;
+}
+
+.stat.accent {
+  background: var(--primary);
+  color: var(--bg);
+}
+.stat.accent .stat-num,
+.stat.accent .stat-text { color: var(--bg); }
+.stat.accent .stat-idx { color: rgba(0,0,0,0.5); }
+.stat.accent .stat-num .unit { color: rgba(0,0,0,0.6); }
+
+/* moving tag line */
+.tag-line {
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.tag-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  animation: tagslide 22s linear infinite;
+  width: max-content;
+}
+
+.tag-item {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(24px, 3vw, 44px);
+  letter-spacing: -0.02em;
+  color: var(--neutral);
+  padding: 0 36px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.tag-item::after {
+  content: "";
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes tagslide {
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 900px) {
+  .what-grid { grid-template-columns: 1fr; }
+}
+
+/* ============== WHO ============== */
+.who-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.who-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.who-item {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  cursor: default;
+  transition: padding-left 0.4s ease;
+}
+
+.who-item:first-child { border-top: 1px solid var(--line); }
+
+.who-item .num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+.who-item .name {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: clamp(22px, 2.4vw, 36px);
+  letter-spacing: -0.025em;
+  color: var(--neutral);
+  text-transform: uppercase;
+  transition: color 0.3s, transform 0.4s ease;
+}
+
+.who-item .marker {
+  width: 36px;
+  height: 1px;
+  background: var(--line);
+  transition: width 0.4s, background 0.3s;
+}
+
+.who-item:hover { padding-left: 16px; }
+.who-item:hover .name { color: var(--primary); }
+.who-item:hover .marker { background: var(--primary); width: 72px; }
+
+.who-item.us .name { color: var(--primary); }
+.who-item.us .marker { background: var(--primary); width: 72px; }
+
+.who-aside {
+  position: sticky;
+  top: 100px;
+}
+
+.who-aside h4 {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.benefit {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 16px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.benefit:last-of-type { border-bottom: none; }
+
+.benefit-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+.benefit-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--neutral);
+}
+
+@media (max-width: 900px) {
+  .who-grid { grid-template-columns: 1fr; gap: 32px; }
+  .who-aside { position: static; }
+}
+
+/* ============== PROGRAM (zigzag) ============== */
+/* ============== PROGRAM (3-col snake route) ============== */
+.program-wrap {
+  position: relative;
+}
+
+.program-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+  margin-bottom: 24px;
+}
+
+.program-prompt-label {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.program-prompt-arrow {
+  display: block;
+  color: var(--primary);
+  animation: prompt-bounce 2.4s infinite;
+}
+
+@keyframes prompt-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+.route {
+  position: relative;
+  padding: 80px 0 80px;
+}
+
+.route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+}
+
+.route-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 140px;
+}
+
+.route-stop {
+  position: relative;
+  padding: 36px 0 0;
+  min-width: 0;
+}
+
+/* snake pattern: 1-2-3-2-1-2-3-2 (S-wave through 3 cols) */
+.route-stop:nth-child(1) { grid-column: 1; grid-row: 1; }
+.route-stop:nth-child(2) { grid-column: 2; grid-row: 2; }
+.route-stop:nth-child(3) { grid-column: 3; grid-row: 3; }
+.route-stop:nth-child(4) { grid-column: 2; grid-row: 4; }
+.route-stop:nth-child(5) { grid-column: 1; grid-row: 5; }
+.route-stop:nth-child(6) { grid-column: 2; grid-row: 6; }
+.route-stop:nth-child(7) { grid-column: 3; grid-row: 7; }
+.route-stop:nth-child(8) { grid-column: 2; grid-row: 8; }
+
+/* text alignment so the dot lines up visually with the content */
+.route-stop:nth-child(1),
+.route-stop:nth-child(5) { text-align: left; }
+.route-stop:nth-child(2),
+.route-stop:nth-child(4),
+.route-stop:nth-child(6),
+.route-stop:nth-child(8) { text-align: center; }
+.route-stop:nth-child(3),
+.route-stop:nth-child(7) { text-align: right; }
+
+/* Dot anchored at TOP-CENTER of each stop block — this is what the SVG path passes through */
+.route-stop::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--primary);
+  border-radius: 50%;
+  z-index: 3;
+  box-shadow: 0 0 0 6px rgba(231, 240, 175, 0.1);
+}
+
+.route-time {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+}
+
+.route-num {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(48px, 5.5vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--neutral);
+  margin-bottom: 12px;
+}
+
+.route-num .label {
+  display: block;
+  font-size: 0.32em;
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 4px;
+  text-transform: uppercase;
+}
+
+.route-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.route-stop:nth-child(1) .route-text,
+.route-stop:nth-child(5) .route-text { margin-left: 0; }
+
+.route-stop:nth-child(3) .route-text,
+.route-stop:nth-child(7) .route-text { margin-right: 0; }
+
+.route-place {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  padding: 6px 12px;
+}
+
+.route-creature {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 140px;
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 12px 32px rgba(231, 240, 175, 0.25));
+  will-change: left, top, transform;
+}
+
+@media (max-width: 900px) {
+  .route-grid {
+    grid-template-columns: 40px 1fr;
+    column-gap: 20px;
+    row-gap: 32px;
+  }
+  /* mobile: collapse all stops into right column with dot on the left */
+  .route-stop:nth-child(n) {
+    grid-column: 2;
+    grid-row: auto;
+    text-align: left !important;
+    padding: 12px 0 12px 0;
+  }
+  .route-stop::before {
+    top: 28px;
+    left: -32px;
+    transform: translate(0, 0);
+  }
+  .route-stop .route-text { margin-left: 0; margin-right: 0; }
+  .route-num { font-size: 36px; }
+  .route-creature { display: none; }
+  .route-svg { display: none; }
+}
+
+/* ============== VALUES (rotating fish circle) ============== */
+.values-stage {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin: 120px auto;
+  aspect-ratio: 1;
+}
+
+.values-fish {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.values-fish img {
+  width: 100%;
+  height: auto;
+  transform: scaleX(-1);
+  animation: rotate-fish 28s linear infinite reverse;
+}
+
+@keyframes rotate-fish {
+  from { transform: scaleX(-1) rotate(0deg); }
+  to   { transform: scaleX(-1) rotate(360deg); }
+}
+
+.values-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.values-ring.outer {
+  width: 198%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.values-ring.inner {
+  width: 158%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 253, 186, 0.4);
+}
+
+.values-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 158%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  animation: orbit-spin 36s linear infinite;
+  pointer-events: none;
+}
+
+.values-orbit-dot {
+  position: absolute;
+  background: #FFFDBA;
+  border-radius: 50%;
+}
+
+.values-orbit-dot.lg {
+  top: 0;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+}
+
+.values-orbit-dot.sm {
+  top: 14.6%;
+  left: 85.4%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+}
+
+@keyframes orbit-spin {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.values-word {
+  position: absolute;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(28px, 3.4vw, 56px);
+  letter-spacing: -0.02em;
+  color: var(--neutral);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.values-word.top {
+  top: -8px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg);
+  padding: 0 28px;
+}
+
+.values-word.left {
+  left: -8px;
+  top: 50%;
+  transform: translate(-100%, -50%);
+  background: var(--bg);
+  padding: 0 28px;
+  color: var(--neutral);
+}
+
+.values-word.right {
+  right: -8px;
+  top: 50%;
+  transform: translate(100%, -50%);
+  background: var(--bg);
+  padding: 0 28px;
+}
+
+.values-word.bottom-word {
+  bottom: -8px;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  background: var(--bg);
+  padding: 0 28px;
+  color: var(--neutral);
+}
+
+@media (max-width: 900px) {
+  .values-word.left, .values-word.right {
+    position: static;
+    transform: none;
+    background: transparent;
+    text-align: center;
+    margin: 8px 0;
+    padding: 0;
+  }
+  .values-word.top { top: -12px; }
+  .values-word.bottom-word { bottom: -12px; }
+  .values-stage { max-width: 480px; }
+  .values-mobile-words {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 32px;
+    gap: 4px;
+  }
+}
+
+.values-mobile-words { display: none; }
+@media (max-width: 600px) {
+  .values-stage { max-width: 320px; aspect-ratio: 1; }
+  .values-word.top, .values-word.bottom-word { display: none; }
+  .values-word.left, .values-word.right { display: none; }
+  .values-mobile-words { display: flex; }
+  .values-mobile-words .v-word {
+    font-family: var(--font-head);
+    font-weight: 800;
+    font-size: 42px;
+    letter-spacing: -0.03em;
+    color: var(--neutral);
+    text-transform: uppercase;
+  }
+}
+
+/* ============== ABOUT — uneven grid ============== */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: minmax(60px, auto);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.about-cell {
+  background: var(--bg);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 120px;
+}
+
+.about-cell .cell-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.about-cell .cell-value {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--neutral);
+}
+
+.about-big {
+  grid-column: 1 / 9;
+  grid-row: 1 / 3;
+  min-height: 320px;
+  padding: 48px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.about-big h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 84px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  color: var(--neutral);
+}
+
+.about-big h3 em { font-style: normal; color: var(--primary); }
+
+.about-quote-cell {
+  grid-column: 9 / 13;
+  grid-row: 1 / 3;
+  min-height: 320px;
+}
+
+.about-quote-cell .q {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--neutral);
+  letter-spacing: -0.01em;
+}
+
+.about-cell.detail-1 { grid-column: 1 / 4; grid-row: 3; }
+.about-cell.detail-2 { grid-column: 4 / 7; grid-row: 3; }
+.about-cell.detail-3 { grid-column: 7 / 10; grid-row: 3; }
+.about-cell.detail-4 { grid-column: 10 / 13; grid-row: 3; background: var(--primary); }
+.about-cell.detail-4 .cell-label { color: rgba(0,0,0,0.5); }
+.about-cell.detail-4 .cell-value { color: var(--bg); }
+
+.about-cta-cell {
+  grid-column: 1 / 13;
+  grid-row: 4 / 5;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 36px 48px;
+}
+.about-cta-cell h4 {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(20px, 2vw, 32px);
+  letter-spacing: -0.02em;
+  color: var(--neutral);
+}
+
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; }
+  .about-big, .about-quote-cell,
+  .about-cell.detail-1, .about-cell.detail-2,
+  .about-cell.detail-3, .about-cell.detail-4,
+  .about-cta-cell {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+  .about-big { min-height: 240px; padding: 32px; }
+  .about-quote-cell { min-height: auto; }
+  .about-cta-cell { flex-direction: column; align-items: flex-start; }
+}
+
+/* ============== PARTNERS ============== */
+.partners-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.partner {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 56px 48px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px 1fr auto;
+  gap: 32px;
+  min-height: 360px;
+  background: var(--bg);
+  transition: background 0.3s;
+}
+
+.partner:hover { background: var(--bg-alt); }
+
+.partner-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.partner-logo .placeholder {
+  height: 64px;
+  width: 200px;
+  border: 1px solid var(--line-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.partner-logo-img {
+  display: block;
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+.partner-logo-img.gazprom { height: 44px; }
+.partner-logo-img.t1      { height: 48px; }
+
+.partner-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.partner-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.partner-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 460px;
+}
+
+.partner-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+
+.partner-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  padding: 4px 12px 4px 0;
+  border-right: 1px solid var(--line);
+  margin-right: 12px;
+}
+.partner-tag:last-child { border-right: none; margin-right: 0; }
+
+@media (max-width: 800px) {
+  .partners-grid { grid-template-columns: 1fr; }
+  .partner { padding: 36px 24px; min-height: 280px; }
+}
+
+/* ============== FORM ============== */
+.form-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.form-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-info h3 {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--neutral);
+}
+
+.form-info h3 em { font-style: normal; color: var(--primary); }
+
+.form-info p {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-dim);
+  max-width: 380px;
+}
+
+.form-contacts {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+}
+
+.form-contact {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+
+.form-contact .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.form-contact .value {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--neutral);
+  text-decoration: none;
+}
+
+a.value:hover { color: var(--primary); }
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid var(--line);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+  gap: 8px;
+}
+
+.field label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.field input {
+  font-family: var(--font-head);
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--neutral);
+  background: transparent;
+  border: none;
+  outline: none;
+  letter-spacing: -0.01em;
+}
+
+.field input::placeholder { color: var(--text-muted); }
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+}
+
+.field-row .field {
+  border-bottom: none;
+  border-right: 1px solid var(--line);
+  padding: 18px 20px 18px 0;
+}
+.field-row .field:last-child { border-right: none; padding-left: 20px; padding-right: 0; }
+
+.checkbox {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 14px;
+  align-items: start;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.checkbox input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+}
+
+.checkbox input:checked {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.checkbox input:checked::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--bg);
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.checkbox label {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.form-submit {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  background: var(--primary);
+  color: var(--bg);
+  border: none;
+  padding: 22px 28px;
+  cursor: pointer;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.2s;
+}
+
+.form-submit:hover { background: var(--neutral); }
+
+@media (max-width: 900px) {
+  .form-grid { grid-template-columns: 1fr; gap: 40px; }
+  .field-row { grid-template-columns: 1fr; }
+  .field-row .field { border-right: none; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  .field-row .field:last-child { border-bottom: none; padding-left: 0; padding-right: 0; }
+}
+
+/* ============== FOOTER ============== */
+.footer {
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  padding: 80px 64px 32px;
+  position: relative;
+}
+
+.footer::before, .footer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--line);
+}
+.footer::before { left: 64px; }
+.footer::after { right: 64px; }
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 64px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--line);
+}
+
+.footer-brand img {
+  height: 56px;
+  width: auto;
+}
+
+.footer-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.footer-cell {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 24px 28px;
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.footer-cell .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.footer-cell .value,
+.footer-cell a.value {
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  color: var(--neutral);
+  text-decoration: none;
+}
+
+a.value:hover { color: var(--primary); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.footer-bottom a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .footer { padding: 56px 24px 24px; }
+  .footer::before { left: 24px; }
+  .footer::after { right: 24px; }
+  .footer-row { grid-template-columns: 1fr 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============== REVEAL ============== */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-stagger > * { transition-delay: var(--d, 0s); }
+</style>
+</head>
+<body>
+
+<!-- Tweak defaults -->
+<script>
+window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#E7F0AF",
+  "waves": true,
+  "rotateFish": true,
+  "tagSpeed": 22
+}/*EDITMODE-END*/;
+</script>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#hero" class="nav-logo" aria-label="Цифроход">
+    <img src="assets/logo-cropped.png" alt="Цифроход" style="height:20px;">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what">01 / Формат</a></li>
+    <li><a href="#who">02 / Участники</a></li>
+    <li><a href="#program">03 / Маршрут</a></li>
+    <li><a href="#values">04 / Ценности</a></li>
+    <li><a href="#partners">05 / Партнёры</a></li>
+  </ul>
+  <a href="#form" class="nav-cta">
+    Участвовать
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="#0D0D0D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</nav>
+
+<!-- ====================================================================== -->
+<!-- HERO -->
+<!-- ====================================================================== -->
+<section class="hero" id="hero">
+
+  <span class="hero-corner tl"></span>
+  <span class="hero-corner tr"></span>
+  <span class="hero-corner bl"></span>
+  <span class="hero-corner br"></span>
+
+  <div class="hero-date">17 июля 2026</div>
+
+  <div class="hero-center">
+    <img src="assets/logo-cropped.png" alt="ЦИФРОХОД · бизнес-круиз" class="hero-logo-img">
+    <p class="hero-desc">
+      Уникальное отраслевое мероприятие для профи в области ИТ
+    </p>
+    <div class="hero-actions">
+      <a href="#form" class="btn btn-primary">
+        Подтвердить участие
+        <span class="arrow">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+      </a>
+      <a href="#program" class="btn btn-secondary">
+        Посмотреть маршрут
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-waves" id="heroWaves">
+    <img src="assets/wave-group-cropped.png" alt="" class="hero-waves-svg">
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3 L8 13 M3 8 L8 13 L13 8" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+</section>
+
+<!-- ====================================================================== -->
+<!-- WHAT -->
+<!-- ====================================================================== -->
+<section class="section" id="what">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>01 / Формат</div>
+      <h2 class="section-title">Что<br>будет<em>?</em></h2>
+    </div>
+
+    <div class="what-grid">
+      <div class="stat reveal">
+        <div class="stat-idx"><span>01</span><span>факт</span></div>
+        <div class="stat-num"><span class="count" data-target="1">0</span><span class="unit">день</span></div>
+        <div class="stat-text">живого общения на теплоходе премиум-класса, вместо скучных пленарных сессий</div>
+      </div>
+      <div class="stat reveal" style="--d:0.1s">
+        <div class="stat-idx"><span>02</span><span>факт</span></div>
+        <div class="stat-num"><span class="count" data-target="20">0</span><span class="unit">+</span></div>
+        <div class="stat-text">крутых цифровых продуктов, которые уже вывели пользователей на новый уровень</div>
+      </div>
+      <div class="stat accent reveal" style="--d:0.2s">
+        <div class="stat-idx"><span>03</span><span>факт</span></div>
+        <div class="stat-num"><span class="count" data-target="150">0</span></div>
+        <div class="stat-text">лучших экспертов в области промышленных IT-решений</div>
+      </div>
+    </div>
+
+    <!-- Moving tag line with yellow dots -->
+    <div class="tag-line">
+      <div class="tag-track" id="tagTrack">
+        <span class="tag-item">ERP</span>
+        <span class="tag-item">Логистика</span>
+        <span class="tag-item">Переработка</span>
+        <span class="tag-item">Сбыт</span>
+        <span class="tag-item">ERP</span>
+        <span class="tag-item">Логистика</span>
+        <span class="tag-item">Переработка</span>
+        <span class="tag-item">Сбыт</span>
+        <span class="tag-item">ERP</span>
+        <span class="tag-item">Логистика</span>
+        <span class="tag-item">Переработка</span>
+        <span class="tag-item">Сбыт</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- WHO -->
+<!-- ====================================================================== -->
+<section class="section" id="who">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>02 / Аудитория</div>
+      <h2 class="section-title">Кто<br>плывёт<em>?</em></h2>
+    </div>
+
+    <div class="who-grid">
+      <div class="who-list">
+        <div class="who-item reveal">
+          <span class="num">01</span>
+          <span class="name">Генеральные директора</span>
+          <span class="marker"></span>
+        </div>
+        <div class="who-item reveal" style="--d:0.08s">
+          <span class="num">02</span>
+          <span class="name">Директора по цифровизации</span>
+          <span class="marker"></span>
+        </div>
+        <div class="who-item reveal" style="--d:0.16s">
+          <span class="num">03</span>
+          <span class="name">ИТ-директора</span>
+          <span class="marker"></span>
+        </div>
+        <div class="who-item reveal" style="--d:0.24s">
+          <span class="num">04</span>
+          <span class="name">Финансовые директора</span>
+          <span class="marker"></span>
+        </div>
+        <div class="who-item us reveal" style="--d:0.32s">
+          <span class="num">05</span>
+          <span class="name">— и мы</span>
+          <span class="marker"></span>
+        </div>
+      </div>
+
+      <aside class="who-aside">
+        <h4>Что получите?</h4>
+        <div class="benefit">
+          <span class="benefit-num">01</span>
+          <span class="benefit-text">Войдёте в профессиональное сообщество лидеров цифровой трансформации.</span>
+        </div>
+        <div class="benefit">
+          <span class="benefit-num">02</span>
+          <span class="benefit-text">Найдёте поставщиков и заказчиков в живом неформальном общении.</span>
+        </div>
+        <div class="benefit">
+          <span class="benefit-num">03</span>
+          <span class="benefit-text">Классно проведёте пятницу — с видами Невы и кулебяками от шеф-повара.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- PROGRAM — zigzag with ship -->
+<!-- ====================================================================== -->
+<section class="section" id="program">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>03 / Расписание</div>
+      <h2 class="section-title">Программа<br>и <em>маршрут</em></h2>
+    </div>
+
+    <div class="program-wrap">
+      <div class="program-prompt">
+        <div class="program-prompt-label">Скрольте, чтобы проплыть маршрут</div>
+        <svg class="program-prompt-arrow" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <path d="M16 4 L16 26 M6 18 L16 28 L26 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <div class="route" id="route">
+        <svg class="route-svg" id="routeSvg" preserveAspectRatio="none"></svg>
+        <img class="route-creature" id="routeCreature" src="assets/creature.png" alt="">
+
+        <div class="route-grid" id="routeGrid">
+          <div class="route-stop reveal">
+            <div class="route-time">10:00 — 10:45</div>
+            <div class="route-num">01<span class="label">Сбор в порту</span></div>
+            <div class="route-text">Встретимся в порту, познакомимся, перекусим и отчалим в добрый путь.</div>
+            <span class="route-place">Порт СПб</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.08s">
+            <div class="route-time">10:45</div>
+            <div class="route-num">02<span class="label">Отплытие</span></div>
+            <div class="route-text">Отплываем в Петергоф. На борту — кофе, виды и первое знакомство.</div>
+            <span class="route-place">Нева</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.16s">
+            <div class="route-time">11:00 — 12:30</div>
+            <div class="route-num">03<span class="label">Деловая программа</span></div>
+            <div class="route-text">Погружаемся в деловую программу. Кейсы, дискуссии, обмен опытом.</div>
+            <span class="route-place">Главный салон</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.24s">
+            <div class="route-time">12:30 — 14:00</div>
+            <div class="route-num">04<span class="label">Обед на борту</span></div>
+            <div class="route-text">Сделаем паузу на кофе и заякорим смыслы. Кулебяки от шеф-повара.</div>
+            <span class="route-place">Палуба</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.32s">
+            <div class="route-time">14:30 — 16:00</div>
+            <div class="route-num">05<span class="label">Швартовка</span></div>
+            <div class="route-text">Сменим локацию и отправимся на дневной фуршет в панорамном шатре.</div>
+            <span class="route-place">Петергоф</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.4s">
+            <div class="route-time">16:15 — 17:15</div>
+            <div class="route-num">06<span class="label">Экскурсия</span></div>
+            <div class="route-text">Пойдём на камерную экскурсию по Большому дворцу в мини-группах.</div>
+            <span class="route-place">Большой дворец</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.48s">
+            <div class="route-time">17:45 — 18:00</div>
+            <div class="route-num">07<span class="label">Возврат</span></div>
+            <div class="route-text">Вернёмся на судно и отправимся в Санкт-Петербург.</div>
+            <span class="route-place">Палуба</span>
+          </div>
+
+          <div class="route-stop reveal" style="--d:0.56s">
+            <div class="route-time">18:00 — 21:00</div>
+            <div class="route-num">08<span class="label">Игра + Банкет</span></div>
+            <div class="route-text">Завершим игрой «Эврика» и банкетом под закат над Невой.</div>
+            <span class="route-place">Главный салон</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:48px;">
+        <a href="#form" class="btn btn-primary">
+          Я в списках
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- VALUES — rotating fish circle with words around -->
+<!-- ====================================================================== -->
+<section class="section" id="values" style="overflow:hidden;">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>04 / Ценности</div>
+      <h2 class="section-title">Три кита<br><em>Цифрохода</em></h2>
+    </div>
+
+    <div class="values-stage">
+      <div class="values-ring outer"></div>
+      <div class="values-ring inner"></div>
+      <div class="values-orbit">
+        <span class="values-orbit-dot lg"></span>
+        <span class="values-orbit-dot sm"></span>
+      </div>
+
+      <div class="values-fish">
+        <img src="assets/fish.png" alt="">
+      </div>
+
+      <span class="values-word top">Путешествие</span>
+      <span class="values-word left">Смыслы</span>
+      <span class="values-word right">Дружба</span>
+      <span class="values-word bottom-word">ERP</span>
+    </div>
+
+    <div class="values-mobile-words">
+      <span class="v-word">Путешествие</span>
+      <span class="v-word">Смыслы</span>
+      <span class="v-word">Дружба</span>
+      <span class="v-word">ERP</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- ABOUT — uneven grid -->
+<!-- ====================================================================== -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>05 / Детали</div>
+      <h2 class="section-title">На теплоходе<br><em>музыка</em> и… мы</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-cell about-big">
+        <h3>Проплывём<br>маршрут по Неве<br>из Петербурга<br>в Петергоф —<br>и <em>назад</em>.</h3>
+      </div>
+
+      <div class="about-cell about-quote-cell">
+        <div class="cell-label">Манифест</div>
+        <div class="q">На судне всё включено: гостеприимство, приятные попутчики и щедрые порции кулебяк из лосося от шеф-повара.</div>
+      </div>
+
+      <div class="about-cell detail-1">
+        <div class="cell-label">Дата</div>
+        <div class="cell-value">17 июля 2026<br>Пятница</div>
+      </div>
+
+      <div class="about-cell detail-2">
+        <div class="cell-label">Маршрут</div>
+        <div class="cell-value">СПб → Петергоф → СПб</div>
+      </div>
+
+      <div class="about-cell detail-3">
+        <div class="cell-label">Длительность</div>
+        <div class="cell-value">11 часов на воде</div>
+      </div>
+
+      <div class="about-cell detail-4">
+        <div class="cell-label">Дресс-код</div>
+        <div class="cell-value">Smart casual</div>
+      </div>
+
+      <div class="about-cell about-cta-cell">
+        <h4>Готовы<br>отчалить?</h4>
+        <a href="#form" class="btn btn-primary">
+          Подтвердить участие
+          <span class="arrow">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- PARTNERS -->
+<!-- ====================================================================== -->
+<section class="section" id="partners">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>06 / Поддержка</div>
+      <h2 class="section-title">Генеральные<br>партнёры</h2>
+    </div>
+
+    <div class="partners-grid">
+      <div class="partner">
+        <div class="partner-logo">
+          <img src="assets/partner-gazprom.png" alt="Газпром" class="partner-logo-img gazprom">
+        </div>
+        <div class="partner-info">
+          <div class="partner-role">Генеральный партнёр · 01</div>
+          <p class="partner-desc">
+            Разработка и внедрение ИТ-продуктов для крупного бизнеса. Полный цикл: от анализа до запуска и поддержки. Промышленность и ТЭК — там, где важны надёжность и непрерывность процессов.
+          </p>
+        </div>
+        <div class="partner-tags">
+          <span class="partner-tag">ERP</span>
+          <span class="partner-tag">ТОиР</span>
+          <span class="partner-tag">Производство</span>
+          <span class="partner-tag">ТЭК</span>
+        </div>
+      </div>
+      <div class="partner">
+        <div class="partner-logo">
+          <img src="assets/partner-t1.svg" alt="Т1" class="partner-logo-img t1">
+        </div>
+        <div class="partner-info">
+          <div class="partner-role">Генеральный партнёр · 02</div>
+          <p class="partner-desc">
+            Системы для управления производством, мониторинга оборудования и цепочек поставок. Автоматизация процессов и связывание систем между собой для крупнейших промышленных заказчиков.
+          </p>
+        </div>
+        <div class="partner-tags">
+          <span class="partner-tag">Логистика</span>
+          <span class="partner-tag">MES</span>
+          <span class="partner-tag">Аналитика</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- FORM -->
+<!-- ====================================================================== -->
+<section class="section" id="form">
+  <div class="section-inner">
+    <div class="section-head">
+      <div class="section-tag"><span class="dash"></span>07 / Регистрация</div>
+      <h2 class="section-title">Подтвердите<br><em>участие</em></h2>
+    </div>
+
+    <div class="form-grid">
+      <div class="form-info">
+        <h3>Заполните форму — наша Маша свяжется с вами, чтобы подтвердить <em>участие</em>.</h3>
+        <p>Мы перезвоним в течение рабочего дня и пришлём детали: программу, дресс-код, точку сбора и контакты на день мероприятия.</p>
+
+        <div class="form-contacts">
+          <div class="form-contact">
+            <span class="label">Дата</span>
+            <span class="value">17 июля 2026</span>
+          </div>
+          <div class="form-contact">
+            <span class="label">Телефон</span>
+            <a class="value" href="tel:+79627182580">+7 962 718-25-80</a>
+          </div>
+          <div class="form-contact">
+            <span class="label">E-mail</span>
+            <a class="value" href="mailto:masha@cifrohod.ru">masha@cifrohod.ru</a>
+          </div>
+        </div>
+      </div>
+
+      <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)">
+        <div class="field-row">
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="ivan@company.ru" required>
+          </div>
+          <div class="field">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" placeholder="+7 000 000-00-00" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Имя и фамилия</label>
+            <input type="text" id="name" placeholder="Иван Петров" required>
+          </div>
+          <div class="field">
+            <label for="company">Компания</label>
+            <input type="text" id="company" placeholder="ООО Ромашка" required>
+          </div>
+        </div>
+        <div class="checkbox">
+          <input type="checkbox" id="consent" required>
+          <label for="consent">Согласен/сна на передачу и обработку персональных данных в соответствии с политикой конфиденциальности.</label>
+        </div>
+        <button type="submit" class="form-submit">
+          Я в деле
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9 L15 9 M9 3 L15 9 L9 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- FOOTER -->
+<!-- ====================================================================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="assets/logo-cropped.png" alt="ЦИФРОХОД">
+    </div>
+
+    <div class="footer-row">
+      <div class="footer-cell">
+        <span class="label">Дата</span>
+        <span class="value">17 июля 2026</span>
+      </div>
+      <div class="footer-cell">
+        <span class="label">Телефон</span>
+        <a class="value" href="tel:+79627182580">+7 962 718-25-80</a>
+      </div>
+      <div class="footer-cell">
+        <span class="label">E-mail</span>
+        <a class="value" href="mailto:masha@cifrohod.ru">masha@cifrohod.ru</a>
+      </div>
+      <div class="footer-cell">
+        <span class="label">Маршрут</span>
+        <span class="value">СПб → Петергоф</span>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 · Цифроход · Бизнес-круиз</span>
+      <a href="#">Политика конфиденциальности</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Tweaks panel mount -->
+<div id="tweaks-root"></div>
+
+<script type="text/babel" src="assets/tweaks-panel.jsx"></script>
+<script type="text/babel">
+const { useEffect } = React;
+
+const Tweaks = () => {
+  const [t, setTweak] = useTweaks(window.__TWEAKS_DEFAULTS);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty('--primary', t.accent);
+  }, [t.accent]);
+
+  useEffect(() => {
+    const w = document.getElementById('heroWaves');
+    if (w) w.style.display = t.waves ? 'block' : 'none';
+  }, [t.waves]);
+
+  useEffect(() => {
+    document.querySelectorAll('.values-fish img').forEach(img => {
+      img.style.animationPlayState = t.rotateFish ? 'running' : 'paused';
+    });
+  }, [t.rotateFish]);
+
+  useEffect(() => {
+    const track = document.getElementById('tagTrack');
+    if (track) track.style.animationDuration = `${t.tagSpeed}s`;
+  }, [t.tagSpeed]);
+
+  return (
+    <TweaksPanel title="Tweaks">
+      <TweakSection title="Цвет">
+        <TweakColor
+          label="Акцент"
+          value={t.accent}
+          options={['#E7F0AF', '#A0E060', '#FFD66B', '#7FB3FF']}
+          onChange={v => setTweak('accent', v)}
+        />
+      </TweakSection>
+      <TweakSection title="Анимации">
+        <TweakToggle label="Волны в hero" value={t.waves} onChange={v => setTweak('waves', v)} />
+        <TweakToggle label="Вращение рыб" value={t.rotateFish} onChange={v => setTweak('rotateFish', v)} />
+        <TweakSlider
+          label="Скорость теглайна"
+          min={8} max={50} step={1}
+          value={t.tagSpeed}
+          onChange={v => setTweak('tagSpeed', v)}
+          format={v => `${v}s`}
+        />
+      </TweakSection>
+    </TweaksPanel>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('tweaks-root')).render(<Tweaks/>);
+</script>
+
+<script>
+// ============== REVEAL ON SCROLL ==============
+// auto-tag elements that should fade in
+document.querySelectorAll('.section-head, .about-cell, .partner, .form-info, .lead-form, .footer-cell, .who-aside h4, .who-aside .benefit').forEach(el => {
+  if (!el.classList.contains('reveal')) el.classList.add('reveal');
+});
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+    } else {
+      e.target.classList.remove('in');
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// ============== COUNT-UP NUMBERS ==============
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+function startCount(el) {
+  const target = parseFloat(el.dataset.target) || 0;
+  const duration = 1600;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const v = Math.floor(easeOutCubic(t) * target);
+    el.textContent = v;
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(tick);
+}
+const countIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      startCount(e.target);
+    }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.count').forEach(el => countIo.observe(el));
+
+// ============== ROUTE PATH + CREATURE ==============
+function drawRoute() {
+  const route = document.getElementById('route');
+  const grid  = document.getElementById('routeGrid');
+  const svg   = document.getElementById('routeSvg');
+  if (!route || !grid || !svg) return;
+  const stops = grid.querySelectorAll('.route-stop');
+  const W = route.clientWidth;
+  const H = route.clientHeight;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+
+  // collect top + bottom anchors for each stop
+  const routeRect = route.getBoundingClientRect();
+  const anchors = [];
+  stops.forEach((stop) => {
+    const r = stop.getBoundingClientRect();
+    const cx = r.left + r.width / 2 - routeRect.left;
+    const topY    = r.top - routeRect.top;          // dot is here (translateY -50%)
+    const bottomY = r.bottom - routeRect.top + 18;  // exit just below card bottom
+    anchors.push({ x: cx, topY, bottomY });
+  });
+  if (anchors.length < 2) return;
+
+  // === visible path: only the curves between cards (in the gap region) ===
+  // strong curvature: control points pulled in toward midpoint Y but kept at start/end X,
+  // and we add a horizontal swing for a more pronounced wave
+  let visibleD = '';
+  for (let i = 0; i < anchors.length - 1; i++) {
+    const a = anchors[i];
+    const b = anchors[i + 1];
+    const startX = a.x, startY = a.bottomY;
+    const endX   = b.x, endY   = b.topY;
+    const midY = (startY + endY) / 2;
+    // gentle S-curve: controls share midY, anchored at each endpoint's x
+    visibleD += `M ${startX.toFixed(2)} ${startY.toFixed(2)} `;
+    visibleD += `C ${startX.toFixed(2)} ${midY.toFixed(2)}, ${endX.toFixed(2)} ${midY.toFixed(2)}, ${endX.toFixed(2)} ${endY.toFixed(2)} `;
+  }
+
+  // === continuous full path for creature motion (invisible) ===
+  // includes a straight L segment through each card body so creature glides through smoothly
+  let fullD = `M ${anchors[0].x.toFixed(2)} ${anchors[0].topY.toFixed(2)} `;
+  for (let i = 0; i < anchors.length; i++) {
+    const p = anchors[i];
+    // go from top of card to bottom of card (straight vertical)
+    fullD += `L ${p.x.toFixed(2)} ${p.bottomY.toFixed(2)} `;
+    if (i < anchors.length - 1) {
+      const next = anchors[i + 1];
+      const midY = (p.bottomY + next.topY) / 2;
+      fullD += `C ${p.x.toFixed(2)} ${midY.toFixed(2)}, ${next.x.toFixed(2)} ${midY.toFixed(2)}, ${next.x.toFixed(2)} ${next.topY.toFixed(2)} `;
+    }
+  }
+
+  svg.innerHTML = `
+    <path d="${visibleD}" stroke="rgba(255,255,255,0.28)" stroke-width="1.4" stroke-dasharray="6 8" fill="none"/>
+    <path d="${fullD}" stroke="none" fill="none" id="zPath"/>
+  `;
+  routePathLen = 0; // recompute
+}
+
+let routePathLen = 0;
+function updateCreature() {
+  const route = document.getElementById('route');
+  const creature = document.getElementById('routeCreature');
+  if (!route || !creature) return;
+
+  const rect = route.getBoundingClientRect();
+  const viewH = window.innerHeight;
+  const totalScrollable = rect.height + viewH;
+  const scrolled = Math.max(0, viewH - rect.top);
+  const progress = Math.min(1, Math.max(0, scrolled / totalScrollable));
+
+  const path = document.getElementById('zPath');
+  if (!path) return;
+  if (!routePathLen) {
+    routePathLen = path.getTotalLength();
+  }
+  const pt = path.getPointAtLength(routePathLen * progress);
+  creature.style.left = pt.x + 'px';
+  creature.style.top  = pt.y + 'px';
+  creature.style.transform = `translate(-50%,-50%)`;
+}
+
+window.addEventListener('load', () => {
+  drawRoute();
+  updateCreature();
+  setTimeout(() => { drawRoute(); updateCreature(); }, 400);
+});
+window.addEventListener('resize', () => {
+  drawRoute();
+  updateCreature();
+});
+window.addEventListener('scroll', updateCreature, { passive: true });
+
+// ============== FORM ==============
+function handleSubmit(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  const orig = btn.innerHTML;
+  btn.textContent = 'Спасибо! Маша свяжется ✓';
+  btn.style.background = 'var(--neutral)';
+  setTimeout(() => {
+    btn.innerHTML = orig;
+    btn.style.background = '';
+    e.target.reset();
+  }, 3000);
+}
+</script>
+
+</body>
+</html>
