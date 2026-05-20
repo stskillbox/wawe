@@ -1654,7 +1654,7 @@ a.value:hover { color: var(--primary); }
   top: 60px;
   width: clamp(360px, 50vw, 700px);
   pointer-events: none;
-  z-index: 10;
+  z-index: 2;            /* behind hero text (z-index 6) */
   will-change: transform, opacity;
   animation: ship-arrive 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
 }
@@ -1663,12 +1663,11 @@ a.value:hover { color: var(--primary); }
   width: 100%;
   height: auto;
   display: block;
-  mix-blend-mode: screen;
-  opacity: 0.78;
+  opacity: 0.72;
   will-change: transform;
-  /* fade stern (left) in, fade nose (right) out at screen edge */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 62%, transparent 100%);
-  mask-image:         linear-gradient(to right, transparent 0%, black 18%, black 62%, transparent 100%);
+  /* soft fade: stern left → visible → fade right edge + fade top */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 65%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 20%, black 65%, transparent 100%);
   animation: ship-float 7s ease-in-out 2.4s infinite;
 }
 
