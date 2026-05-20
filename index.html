@@ -501,6 +501,68 @@ img { display: block; max-width: 100%; }
 .stat.accent .stat-idx { color: rgba(0,0,0,0.5); }
 .stat.accent .stat-num .unit { color: rgba(0,0,0,0.6); }
 
+/* ВЕРСИЯ 2 — цифры слева, фото справа */
+.what-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+  margin-bottom: 64px;
+}
+
+.what-stats {
+  border-right: 1px solid var(--line);
+}
+
+.what-stat-row {
+  padding: 40px 40px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.what-stat-num {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(64px, 7vw, 100px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--neutral);
+}
+
+.what-stat-unit {
+  font-size: 0.3em;
+  color: var(--text-dim);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  margin-left: 6px;
+}
+
+.what-stat-text {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.what-photos {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.what-photo {
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--line);
+  min-height: 220px;
+}
+
+@media (max-width: 768px) {
+  .what-layout { grid-template-columns: 1fr; }
+  .what-stats { border-right: none; }
+  .what-photos { display: none; }
+  .what-stat-row { padding: 28px 0; }
+}
+
 /* moving tag line */
 .tag-line {
   margin-top: 56px;
@@ -1644,6 +1706,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       <h2 class="section-title">Что будет<em>?</em></h2>
     </div>
 
+    <!-- ВЕРСИЯ 1 — большие цифры (сохранено для v2)
     <div class="what-grid">
       <div class="stat reveal">
         <div class="stat-idx"><span>01</span><span>факт</span></div>
@@ -1659,6 +1722,29 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
         <div class="stat-idx"><span>03</span><span>факт</span></div>
         <div class="stat-num"><span class="count" data-target="150">0</span></div>
         <div class="stat-text">лучших экспертов в области промышленных IT-решений</div>
+      </div>
+    </div>
+    ВЕРСИЯ 1 конец -->
+
+    <!-- ВЕРСИЯ 2 — цифры слева, фото справа -->
+    <div class="what-layout">
+      <div class="what-stats">
+        <div class="what-stat-row reveal">
+          <div class="what-stat-num"><span class="count" data-target="1">0</span><span class="what-stat-unit">день</span></div>
+          <div class="what-stat-text">живого общения на теплоходе премиум-класса, вместо скучных пленарных сессий</div>
+        </div>
+        <div class="what-stat-row reveal" style="--d:0.1s">
+          <div class="what-stat-num"><span class="count" data-target="20">0</span><span class="what-stat-unit">+</span></div>
+          <div class="what-stat-text">крутых цифровых продуктов, которые уже вывели пользователей на новый уровень</div>
+        </div>
+        <div class="what-stat-row reveal" style="--d:0.2s">
+          <div class="what-stat-num"><span class="count" data-target="150">0</span></div>
+          <div class="what-stat-text">лучших экспертов в области промышленных IT-решений</div>
+        </div>
+      </div>
+      <div class="what-photos">
+        <div class="what-photo"><!-- фото 1 --></div>
+        <div class="what-photo"><!-- фото 2 --></div>
       </div>
     </div>
 
