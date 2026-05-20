@@ -1666,15 +1666,9 @@ a.value:hover { color: var(--primary); }
   mix-blend-mode: screen;
   opacity: 0.78;
   will-change: transform;
-  /* fade: stern (left) → opaque → fade nose into right edge + fade top edge */
-  -webkit-mask-image:
-    linear-gradient(to right,  transparent 0%, black 22%, black 68%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
-  mask-image:
-    linear-gradient(to right,  transparent 0%, black 22%, black 68%, transparent 100%),
-    linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
+  /* fade stern (left) in, fade nose (right) out at screen edge */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 18%, black 62%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 18%, black 62%, transparent 100%);
   animation: ship-float 7s ease-in-out 2.4s infinite;
 }
 
