@@ -550,106 +550,139 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============== WHO ============== */
-.who-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 64px;
-  align-items: start;
+#who.section {
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
 }
 
-.who-list {
+.who-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  min-height: calc(100vh - 62px);
+}
+
+.who-image-col {
+  border-right: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 36px;
+}
+
+.who-image-col img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  will-change: transform, opacity;
+  transform: translateX(-110%) rotate(-22deg);
+  opacity: 0;
+}
+
+.who-content-col {
   display: flex;
   flex-direction: column;
 }
 
-.who-item {
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  align-items: center;
-  gap: 20px;
-  padding: 22px 0;
+.who-block {
+  padding: 36px 44px;
+  flex: 1;
+}
+
+.who-block:first-child {
   border-bottom: 1px solid var(--line);
-  position: relative;
-  cursor: default;
-  transition: padding-left 0.4s ease;
 }
 
-.who-item:first-child { border-top: 1px solid var(--line); }
-
-.who-item .num {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-
-.who-item .name {
+.who-block-title {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: clamp(22px, 2.4vw, 36px);
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 34px);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: var(--neutral);
-  text-transform: uppercase;
-  transition: color 0.3s, transform 0.4s ease;
+  margin-bottom: 20px;
 }
 
-.who-item .marker {
-  width: 36px;
-  height: 1px;
-  background: var(--line);
-  transition: width 0.4s, background 0.3s;
+.who-list-simple {
+  display: flex;
+  flex-direction: column;
 }
 
-.who-item:hover { padding-left: 16px; }
-.who-item:hover .name { color: var(--primary); }
-.who-item:hover .marker { background: var(--primary); width: 72px; }
-
-.who-item.us .name { color: var(--primary); }
-.who-item.us .marker { background: var(--primary); width: 72px; }
-
-.who-aside {
-  position: sticky;
-  top: 100px;
-}
-
-.who-aside h4 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 24px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
-}
-
-.benefit {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.benefit:last-of-type { border-bottom: none; }
-
-.benefit-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--primary);
-  letter-spacing: 0.04em;
-}
-
-.benefit-text {
+.who-row {
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--neutral);
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--text-dim);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.4;
+  display: flex;
+  align-items: baseline;
+}
+
+.who-row:first-child { border-top: 1px solid var(--line); }
+.who-row--us { color: var(--primary); }
+
+.who-marker {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--primary);
+  margin-right: 12px;
+  font-size: 1.1em;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.who-row:hover .who-marker { transform: translateX(5px); }
+.who-benefit-row:hover .who-marker { transform: rotate(90deg); }
+
+.who-benefits-simple {
+  display: flex;
+  flex-direction: column;
+}
+
+.who-benefit-row {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--text-dim);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+}
+
+.who-benefit-row:first-child { border-top: 1px solid var(--line); }
+.who-benefit-row:last-child { border-bottom: none; }
+
+/* Staggered slide-in when layout enters viewport */
+.who-list-simple .who-row,
+.who-benefits-simple .who-benefit-row {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.who-layout.in .who-list-simple .who-row:nth-child(1),
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(1) { transition-delay: 0.3s; }
+.who-layout.in .who-list-simple .who-row:nth-child(2),
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(2) { transition-delay: 0.42s; }
+.who-layout.in .who-list-simple .who-row:nth-child(3),
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(3) { transition-delay: 0.54s; }
+.who-layout.in .who-list-simple .who-row:nth-child(4) { transition-delay: 0.66s; }
+.who-layout.in .who-list-simple .who-row:nth-child(5) { transition-delay: 0.78s; }
+
+.who-layout.in .who-list-simple .who-row,
+.who-layout.in .who-benefits-simple .who-benefit-row {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 @media (max-width: 900px) {
-  .who-grid { grid-template-columns: 1fr; gap: 32px; }
-  .who-aside { position: static; }
+  .who-layout { grid-template-columns: 1fr; min-height: auto; }
+  .who-image-col { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 24px; }
+  .who-block { padding: 28px 24px; }
 }
 
 /* ============== PROGRAM (symmetric zigzag) ============== */
@@ -719,7 +752,7 @@ img { display: block; max-width: 100%; }
   grid-template-rows: auto auto;
   column-gap: 16px;
   row-gap: 4px;
-  align-items: stretch;
+  align-items: center;
   text-align: left;
 }
 
@@ -768,9 +801,9 @@ img { display: block; max-width: 100%; }
   grid-column: 1;
   grid-row: 1 / 3;
   display: flex;
-  align-items: flex-start;
-  align-self: stretch;
-  margin-top: -2px;
+  align-items: center;
+  align-self: center;
+  transform: translateY(2px);
 }
 
 .route-num .label {
@@ -1649,55 +1682,34 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <section class="section" id="who">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>02 / Аудитория</div>
-      <h2 class="section-title">Кто плывёт<em>?</em></h2>
-    </div>
-
-    <div class="who-grid">
-      <div class="who-list">
-        <div class="who-item reveal">
-          <span class="num">01</span>
-          <span class="name">Генеральные директора</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item reveal" style="--d:0.08s">
-          <span class="num">02</span>
-          <span class="name">Директора по цифровизации</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item reveal" style="--d:0.16s">
-          <span class="num">03</span>
-          <span class="name">ИТ-директора</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item reveal" style="--d:0.24s">
-          <span class="num">04</span>
-          <span class="name">Финансовые директора</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item us reveal" style="--d:0.32s">
-          <span class="num">05</span>
-          <span class="name">— и мы</span>
-          <span class="marker"></span>
-        </div>
+    <div class="who-layout reveal">
+      <!-- LEFT: creature -->
+      <div class="who-image-col">
+        <img src="creature.png" alt="Морское чудовище">
       </div>
 
-      <aside class="who-aside">
-        <h4>Что получите?</h4>
-        <div class="benefit">
-          <span class="benefit-num">01</span>
-          <span class="benefit-text">Войдёте в профессиональное сообщество лидеров цифровой трансформации.</span>
+      <!-- RIGHT: two blocks stacked -->
+      <div class="who-content-col">
+        <div class="who-block">
+          <h3 class="who-block-title">Кто плывёт?</h3>
+          <div class="who-list-simple">
+            <div class="who-row"><span class="who-marker">—</span>Генеральные директора</div>
+            <div class="who-row"><span class="who-marker">—</span>Директора по цифровизации</div>
+            <div class="who-row"><span class="who-marker">—</span>ИТ-директора</div>
+            <div class="who-row"><span class="who-marker">—</span>Финансовые директора</div>
+            <div class="who-row who-row--us"><span class="who-marker">—</span>Мы</div>
+          </div>
         </div>
-        <div class="benefit">
-          <span class="benefit-num">02</span>
-          <span class="benefit-text">Найдёте поставщиков и заказчиков в живом неформальном общении.</span>
+
+        <div class="who-block">
+          <h3 class="who-block-title">Что получите?</h3>
+          <div class="who-benefits-simple">
+            <div class="who-benefit-row"><span class="who-marker">+</span>Войдёте в профессиональное сообщество</div>
+            <div class="who-benefit-row"><span class="who-marker">+</span>Найдёте поставщиков и заказчиков</div>
+            <div class="who-benefit-row"><span class="who-marker">+</span>Классно проведёте пятницу</div>
+          </div>
         </div>
-        <div class="benefit">
-          <span class="benefit-num">03</span>
-          <span class="benefit-text">Классно проведёте пятницу — с видами Невы и кулебяками от шеф-повара.</span>
-        </div>
-      </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -1713,14 +1725,13 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
     </div>
 
     <div class="program-wrap">
-      <div class="program-prompt">
-        <div class="program-prompt-label">Скрольте, чтобы проплыть маршрут</div>
-        <svg class="program-prompt-arrow" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 4 L16 26 M6 18 L16 28 L26 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
       <div class="route" id="route">
+        <div class="program-prompt" id="programPrompt">
+          <div class="program-prompt-label">Скрольте, чтобы проплыть маршрут</div>
+          <svg class="program-prompt-arrow" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4 L16 26 M6 18 L16 28 L26 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <svg class="route-svg" id="routeSvg" preserveAspectRatio="none"></svg>
         <img class="route-creature" id="routeCreature" src="ship.svg" alt="">
 
@@ -2121,10 +2132,20 @@ function drawRoute() {
   });
   if (anchors.length < 2) return;
 
+  // === line from scroll prompt arrow to first stop ===
+  let entryD = '';
+  const prompt = document.getElementById('programPrompt');
+  if (prompt) {
+    const pr = prompt.getBoundingClientRect();
+    const px = W / 2;
+    const py = pr.bottom - routeRect.top;
+    const a0 = anchors[0];
+    const midY = (py + a0.topY) / 2;
+    entryD = `M ${px.toFixed(2)} ${py.toFixed(2)} C ${px.toFixed(2)} ${midY.toFixed(2)}, ${a0.x.toFixed(2)} ${midY.toFixed(2)}, ${a0.x.toFixed(2)} ${a0.topY.toFixed(2)} `;
+  }
+
   // === visible path: only the curves between cards (in the gap region) ===
-  // strong curvature: control points pulled in toward midpoint Y but kept at start/end X,
-  // and we add a horizontal swing for a more pronounced wave
-  let visibleD = '';
+  let visibleD = entryD;
   for (let i = 0; i < anchors.length - 1; i++) {
     const a = anchors[i];
     const b = anchors[i + 1];
@@ -2195,6 +2216,35 @@ window.addEventListener('resize', () => {
   updateCreature();
 });
 window.addEventListener('scroll', updateCreature, { passive: true });
+
+// ============== WHO CREATURE SCROLL SCRUB ==============
+function updateWhoCreature() {
+  const section = document.getElementById('who');
+  const img = section && section.querySelector('.who-image-col img');
+  if (!img) return;
+
+  const rect = section.getBoundingClientRect();
+  const viewH = window.innerHeight;
+
+  // растягиваем анимацию на полтора экрана скрола — движение заметное
+  const raw = (viewH - rect.top) / (viewH * 1.4);
+  const p = Math.min(1, Math.max(0, raw));
+
+  const e = 1 - Math.pow(1 - p, 3);
+
+  const tx    = (1 - e) * -130;
+  const rot   = -40 + e * 65;
+  const scale = 0.55 + e * 0.45;
+  const skx   = (1 - e) * -15;
+  const op    = Math.min(1, p * 3);
+
+  img.style.transform = `translateX(${tx.toFixed(1)}%) rotate(${rot.toFixed(1)}deg) skewX(${skx.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+  img.style.opacity   = op.toFixed(3);
+}
+
+window.addEventListener('scroll', updateWhoCreature, { passive: true });
+window.addEventListener('load', updateWhoCreature);
+window.addEventListener('resize', updateWhoCreature);
 
 // ============== FORM ==============
 function handleSubmit(e) {
