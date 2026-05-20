@@ -2620,32 +2620,6 @@ function handleSubmit(e) {
   }, 3000);
 }
 
-// What section slider
-(function () {
-  const slides = document.querySelectorAll('.what-slide');
-  const dots   = document.querySelectorAll('.what-dot');
-  const prev   = document.querySelector('.what-arrow-prev');
-  const next   = document.querySelector('.what-arrow-next');
-  if (!slides.length) return;
-  let cur = 0, timer;
-
-  function goTo(idx) {
-    slides[cur].classList.remove('active');
-    dots[cur].classList.remove('active');
-    cur = (idx + slides.length) % slides.length;
-    slides[cur].classList.add('active');
-    dots[cur].classList.add('active');
-  }
-
-  function start() { timer = setInterval(() => goTo(cur + 1), 3800); }
-  function reset()  { clearInterval(timer); start(); }
-
-  dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); reset(); }));
-  prev.addEventListener('click', () => { goTo(cur - 1); reset(); });
-  next.addEventListener('click', () => { goTo(cur + 1); reset(); });
-
-  start();
-})();
 </script>
 
 </body>
