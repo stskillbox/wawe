@@ -1001,8 +1001,8 @@ img { display: block; max-width: 100%; }
 .values-stage {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  margin: 120px auto;
+  max-width: 600px;
+  margin: 0 auto;
   aspect-ratio: 1;
 }
 
@@ -1014,15 +1014,17 @@ img { display: block; max-width: 100%; }
 }
 
 .values-fish img {
-  width: 100%;
+  width: 140%;
   height: auto;
-  transform: scaleX(-1);
-  animation: rotate-fish 28s linear infinite reverse;
+  animation: rotate-fish 36s linear infinite reverse;
 }
 
 @keyframes rotate-fish {
-  from { transform: scaleX(-1) rotate(0deg); }
-  to   { transform: scaleX(-1) rotate(360deg); }
+  0%   { transform: scaleX(-1) rotate(0deg)   scale(1);    }
+  25%  { transform: scaleX(-1) rotate(90deg)  scale(1.05); }
+  50%  { transform: scaleX(-1) rotate(180deg) scale(1);    }
+  75%  { transform: scaleX(-1) rotate(270deg) scale(1.05); }
+  100% { transform: scaleX(-1) rotate(360deg) scale(1);    }
 }
 
 .values-ring {
@@ -1128,6 +1130,46 @@ img { display: block; max-width: 100%; }
   color: var(--neutral);
 }
 
+.values-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.values-center-word {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(19px, 2.3vw, 29px);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(255,255,255,0.2);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.values-center-word:nth-child(1) { animation: word-glow 8s 0s   infinite; }
+.values-center-word:nth-child(2) { animation: word-glow 8s 2s   infinite; }
+.values-center-word:nth-child(3) { animation: word-glow 8s 4s   infinite; }
+.values-center-word:nth-child(4) { animation: word-glow 8s 6s   infinite; }
+
+@keyframes word-glow {
+  0%, 20%, 100% {
+    color: rgba(255,255,255,0.2);
+    text-shadow: none;
+  }
+  10% {
+    color: var(--primary);
+    text-shadow: 0 0 24px rgba(231,240,175,0.7);
+  }
+}
+
 @media (max-width: 900px) {
   .values-word.left, .values-word.right {
     position: static;
@@ -1150,6 +1192,8 @@ img { display: block; max-width: 100%; }
 }
 
 .values-mobile-words { display: none; }
+
+#values::before, #values::after { display: none; }
 @media (max-width: 600px) {
   .values-stage { max-width: 320px; aspect-ratio: 1; }
   .values-word.top, .values-word.bottom-word { display: none; }
@@ -1932,7 +1976,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- PROGRAM — zigzag with ship -->
 <!-- ====================================================================== -->
-<section class="section" id="program">
+<section class="section" id="program" style="padding-bottom:0;">
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>03 / Расписание</div>
@@ -2014,29 +2058,19 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- VALUES — rotating fish circle with words around -->
 <!-- ====================================================================== -->
-<section class="section" id="values" style="overflow:hidden;">
+<section class="section" id="values" style="overflow:hidden; border-top:none; padding-top:100px; padding-bottom:100px;">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>04 / Ценности</div>
-      <h2 class="section-title">Три кита <em>Цифрохода</em></h2>
-    </div>
-
     <div class="values-stage">
-      <div class="values-ring outer"></div>
-      <div class="values-ring inner"></div>
-      <div class="values-orbit">
-        <span class="values-orbit-dot lg"></span>
-        <span class="values-orbit-dot sm"></span>
-      </div>
-
       <div class="values-fish">
-        <img src="fish.png" alt="">
+        <img src="fish-circles.png" alt="">
       </div>
 
-      <span class="values-word top">Путешествие</span>
-      <span class="values-word left">Смыслы</span>
-      <span class="values-word right">Дружба</span>
-      <span class="values-word bottom-word">ERP</span>
+      <div class="values-center">
+        <span class="values-center-word active">Путешествие</span>
+        <span class="values-center-word">Смыслы</span>
+        <span class="values-center-word">Дружба</span>
+        <span class="values-center-word">ERP</span>
+      </div>
     </div>
 
     <div class="values-mobile-words">
