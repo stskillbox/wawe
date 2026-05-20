@@ -664,14 +664,16 @@ img { display: block; max-width: 100%; }
   transition: opacity 0.45s ease, transform 0.45s ease;
 }
 
-.who-layout.in .who-list-simple .who-row:nth-child(1),
-.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(1) { transition-delay: 0.3s; }
-.who-layout.in .who-list-simple .who-row:nth-child(2),
-.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(2) { transition-delay: 0.42s; }
-.who-layout.in .who-list-simple .who-row:nth-child(3),
-.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(3) { transition-delay: 0.54s; }
-.who-layout.in .who-list-simple .who-row:nth-child(4) { transition-delay: 0.66s; }
-.who-layout.in .who-list-simple .who-row:nth-child(5) { transition-delay: 0.78s; }
+.who-layout.in .who-list-simple .who-row:nth-child(1) { transition-delay: 0.3s; }
+.who-layout.in .who-list-simple .who-row:nth-child(2) { transition-delay: 0.45s; }
+.who-layout.in .who-list-simple .who-row:nth-child(3) { transition-delay: 0.6s; }
+.who-layout.in .who-list-simple .who-row:nth-child(4) { transition-delay: 0.75s; }
+.who-layout.in .who-list-simple .who-row:nth-child(5) { transition-delay: 0.9s; }
+
+/* плюсы стартуют после того, как последний пункт «кто» закончил (0.9 + 0.45 ≈ 1.35s) */
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(1) { transition-delay: 1.35s; }
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(2) { transition-delay: 1.5s; }
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(3) { transition-delay: 1.65s; }
 
 .who-layout.in .who-list-simple .who-row,
 .who-layout.in .who-benefits-simple .who-benefit-row {
@@ -752,7 +754,7 @@ img { display: block; max-width: 100%; }
   grid-template-rows: auto auto;
   column-gap: 16px;
   row-gap: 4px;
-  align-items: center;
+  align-items: baseline;
   text-align: left;
 }
 
@@ -801,9 +803,7 @@ img { display: block; max-width: 100%; }
   grid-column: 1;
   grid-row: 1 / 3;
   display: flex;
-  align-items: center;
-  align-self: center;
-  transform: translateY(2px);
+  align-items: flex-start;
 }
 
 .route-num .label {
