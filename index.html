@@ -2287,7 +2287,7 @@ function filterEmail(input) {
   let hint = field.querySelector('.field-hint');
   if (before !== after) {
     if (!hint) { hint = document.createElement('span'); hint.className = 'field-hint'; field.appendChild(hint); }
-    hint.textContent = 'Только английские буквы';
+    hint.textContent = 'Без кириллицы';
   } else if (hint) {
     hint.remove();
   }
@@ -2349,7 +2349,7 @@ function handleSubmit(e) {
   const consent = document.getElementById('consent').checked;
 
   if (!emailVal || !emailVal.includes('@')) {
-    showError('email', 'Только английские буквы');
+    showError('email', 'Без кириллицы');
   }
   const phoneDigits = phoneVal.replace(/\D/g, '');
   if (!phoneVal || phoneDigits.length < 2) {
