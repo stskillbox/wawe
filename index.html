@@ -235,39 +235,7 @@ img { display: block; max-width: 100%; }
   border-bottom: 1px solid var(--line);
 }
 
-.hero::before, .hero::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--line);
-}
-.hero::before { left: 64px; }
-.hero::after { right: 64px; }
-
-/* corner cross marks */
-.hero-corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-}
-.hero-corner::before, .hero-corner::after {
-  content: "";
-  position: absolute;
-  background: var(--primary);
-}
-.hero-corner::before {
-  left: 50%; top: 0; bottom: 0; width: 1px; transform: translateX(-50%);
-}
-.hero-corner::after {
-  top: 50%; left: 0; right: 0; height: 1px; transform: translateY(-50%);
-}
-.hero-corner.tl { top: 92px; left: 56px; }
-.hero-corner.tr { top: 92px; right: 56px; }
-.hero-corner.bl { bottom: 32px; left: 56px; }
-.hero-corner.br { bottom: 32px; right: 56px; }
+/* hero rail lines and corner marks removed */
 
 .hero-date {
   position: relative;
@@ -1780,11 +1748,6 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- HERO -->
 <!-- ====================================================================== -->
 <section class="hero" id="hero">
-
-  <span class="hero-corner tl"></span>
-  <span class="hero-corner tr"></span>
-  <span class="hero-corner bl"></span>
-  <span class="hero-corner br"></span>
 
   <div class="hero-date">17 июля 2026</div>
 
