@@ -231,7 +231,7 @@ img { display: block; max-width: 100%; }
   align-items: center;
   justify-content: flex-start;
   padding: 118px 64px 28px;
-  overflow: hidden;
+  overflow: visible;   /* ship & label bleed into 2nd screen on scroll */
   border-bottom: 1px solid var(--line);
 }
 
@@ -357,21 +357,23 @@ img { display: block; max-width: 100%; }
 
 .btn .arrow svg { display: block; }
 
-/* waves layer — text waves SVG positioned on the right with gradient fade-to-black */
+/* waves layer — left side, under text, flipped & tilted */
 .hero-waves {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
+  /* flip the whole layer: what was right is now left */
+  transform: scaleX(-1);
 }
 
 .hero-waves-svg {
   position: absolute;
-  right: calc(-22% - 30px);
-  top: 100%;
-  transform: translateY(-72%);
-  height: 110%;
+  right: calc(-18% - 20px);   /* after container flip, appears on LEFT */
+  top: 55%;
+  transform: translateY(-50%) rotate(14deg);
+  height: 95%;
   width: auto;
   max-width: none;
   -webkit-mask-image:
@@ -382,18 +384,18 @@ img { display: block; max-width: 100%; }
     radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
-  opacity: 0.95;
-  animation: wave-drift 15s ease-in-out infinite;
+  opacity: 0.85;
+  animation: wave-drift-left 16s ease-in-out infinite;
 }
 
-@keyframes wave-drift {
-  0%, 100% { transform: translateY(-72%) translateX(0) rotate(0) scale(1); }
-  50% { transform: translateY(-68%) translateX(-24px) rotate(-1deg) scale(1.03); }
+@keyframes wave-drift-left {
+  0%, 100% { transform: translateY(-50%) rotate(14deg) translateX(0)   scale(1);    }
+  50%       { transform: translateY(-48%) rotate(14deg) translateX(22px) scale(1.025); }
 }
 
 @media (max-width: 900px) {
-  .hero-waves { opacity: 0.4; }
-  .hero-waves-svg { right: -45%; height: 90%; }
+  .hero-waves { opacity: 0.35; }
+  .hero-waves-svg { right: -40%; height: 80%; }
 }
 
 /* scroll cue */
@@ -553,22 +555,88 @@ img { display: block; max-width: 100%; }
 }
 
 .what-photos {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
+  height: 100%;
 }
 
-.what-photo {
-  background: var(--bg-alt);
-  border-bottom: 1px solid var(--line);
+.what-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
+  background: var(--bg-alt);
 }
 
-.what-photo img {
+.what-slider::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.10);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.what-slide {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
 }
+
+.what-slide.active {
+  opacity: 1;
+}
+
+.what-slider-nav {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.what-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s;
+}
+
+.what-dot.active { background: var(--primary); }
+
+.what-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.35);
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.2s;
+  opacity: 0;
+}
+
+.what-slider:hover .what-arrow { opacity: 1; }
+.what-arrow:hover { background: rgba(0,0,0,0.6); }
+.what-arrow-prev { left: 12px; }
+.what-arrow-next { right: 12px; }
 
 @media (max-width: 768px) {
   .what-layout { grid-template-columns: 1fr; height: auto; }
@@ -1611,19 +1679,29 @@ a.value:hover { color: var(--primary); }
 }
 .reveal-stagger > * { transition-delay: var(--d, 0s); }
 
-/* ── Hero ship ── */
-.hero-ship {
+/* ── Hero motion group: ship + route label (parallax into 2nd screen) ── */
+.hero-motion-group {
   position: absolute;
   right: -24px;
-  bottom: 64px;
-  width: clamp(340px, 46vw, 660px);
+  bottom: 52px;
+  width: clamp(360px, 50vw, 700px);
   pointer-events: none;
-  z-index: 3;
+  z-index: 10;           /* sits above the what-section as it bleeds in */
   will-change: transform, opacity;
-  /* fade stern (left) into background, keep nose (right) sharp */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 14%, black 30%);
-  mask-image:         linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 14%, black 30%);
   animation: ship-arrive 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+}
+
+.hero-route-label {
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1vw, 13px);
+  letter-spacing: 0.2em;
+  color: var(--primary);
+  text-transform: uppercase;
+  text-align: right;
+  padding-right: 36px;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.5s both;
 }
 
 .hero-ship-img {
@@ -1633,7 +1711,15 @@ a.value:hover { color: var(--primary); }
   mix-blend-mode: screen;
   opacity: 0.78;
   will-change: transform;
+  /* fade stern (left) in, keep nose (right) sharp */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 14%, black 30%);
+  mask-image:         linear-gradient(to right, transparent 0%, rgba(0,0,0,0.5) 14%, black 30%);
   animation: ship-float 7s ease-in-out 2.4s infinite;
+}
+
+@keyframes hero-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes ship-arrive {
@@ -1648,15 +1734,15 @@ a.value:hover { color: var(--primary); }
 }
 
 @media (max-width: 900px) {
-  .hero-ship {
-    bottom: 32px;
-    right: -32px;
-    width: clamp(220px, 58vw, 400px);
+  .hero-motion-group {
+    bottom: 28px;
+    right: -28px;
+    width: clamp(220px, 60vw, 420px);
   }
 }
 
 @media (max-width: 600px) {
-  .hero-ship { display: none; }
+  .hero-motion-group { display: none; }
 }
 </style>
 </head>
@@ -1782,8 +1868,18 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
         </div>
       </div>
       <div class="what-photos">
-        <div class="what-photo"><!-- фото 1 --></div>
-        <div class="what-photo"><!-- фото 2 --></div>
+        <div class="what-slider">
+          <img class="what-slide active" src="Petergof.jpg" alt="Петергоф">
+          <img class="what-slide" src="Petergof_1.jpg" alt="Петергоф">
+          <img class="what-slide" src="Petergof_2.jpg" alt="Петергоф">
+          <div class="what-slider-nav">
+            <button class="what-dot active" data-idx="0"></button>
+            <button class="what-dot" data-idx="1"></button>
+            <button class="what-dot" data-idx="2"></button>
+          </div>
+          <button class="what-arrow what-arrow-prev" aria-label="Назад">&#8592;</button>
+          <button class="what-arrow what-arrow-next" aria-label="Вперёд">&#8594;</button>
+        </div>
       </div>
     </div>
 
@@ -2489,6 +2585,33 @@ function handleSubmit(e) {
     document.querySelectorAll('#leadForm .field-error').forEach(f => f.remove());
   }, 3000);
 }
+
+// What section slider
+(function () {
+  const slides = document.querySelectorAll('.what-slide');
+  const dots   = document.querySelectorAll('.what-dot');
+  const prev   = document.querySelector('.what-arrow-prev');
+  const next   = document.querySelector('.what-arrow-next');
+  if (!slides.length) return;
+  let cur = 0, timer;
+
+  function goTo(idx) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (idx + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+
+  function start() { timer = setInterval(() => goTo(cur + 1), 3800); }
+  function reset()  { clearInterval(timer); start(); }
+
+  dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); reset(); }));
+  prev.addEventListener('click', () => { goTo(cur - 1); reset(); });
+  next.addEventListener('click', () => { goTo(cur + 1); reset(); });
+
+  start();
+})();
 </script>
 
 </body>
