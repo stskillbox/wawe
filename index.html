@@ -325,45 +325,37 @@ img { display: block; max-width: 100%; }
 
 .btn .arrow svg { display: block; }
 
-/* waves layer — left side, under text, flipped & tilted */
+/* waves layer — circular text «по Неве в Петергоф», left side */
 .hero-waves {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
-  /* flip the whole layer: what was right is now left */
-  transform: scaleX(-1);
 }
 
 .hero-waves-svg {
   position: absolute;
-  right: calc(-18% - 20px);   /* after container flip, appears on LEFT */
-  top: 55%;
-  transform: translateY(-50%) rotate(14deg);
-  height: 95%;
+  left: -14%;
+  top: -5%;
+  height: 118%;
   width: auto;
   max-width: none;
-  -webkit-mask-image:
-    linear-gradient(to left, transparent 0%, black 12%, black 60%, transparent 100%),
-    radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
-  mask-image:
-    linear-gradient(to left, transparent 0%, black 12%, black 60%, transparent 100%),
-    radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
-  -webkit-mask-composite: source-in;
-  mask-composite: intersect;
-  opacity: 0.85;
-  animation: wave-drift-left 16s ease-in-out infinite;
+  opacity: 0.88;
+  /* fade right edge softly — text disappears before hitting center title */
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 38%, transparent 66%);
+  mask-image:         linear-gradient(to right, black 0%, black 38%, transparent 66%);
+  animation: wave-drift-left 22s ease-in-out infinite;
 }
 
 @keyframes wave-drift-left {
-  0%, 100% { transform: translateY(-50%) rotate(14deg) translateX(0)   scale(1);    }
-  50%       { transform: translateY(-48%) rotate(14deg) translateX(22px) scale(1.025); }
+  0%, 100% { transform: translateX(0)    scale(1);    }
+  50%       { transform: translateX(-18px) scale(1.012); }
 }
 
 @media (max-width: 900px) {
-  .hero-waves { opacity: 0.35; }
-  .hero-waves-svg { right: -40%; height: 80%; }
+  .hero-waves { opacity: 0.4; }
+  .hero-waves-svg { left: -30%; height: 90%; }
 }
 
 /* scroll cue */
@@ -1651,8 +1643,8 @@ a.value:hover { color: var(--primary); }
 .hero-motion-group {
   position: absolute;
   right: 0;
-  top: 40px;
-  width: clamp(400px, 55vw, 760px);
+  top: 10px;
+  width: clamp(440px, 58vw, 820px);
   pointer-events: none;
   z-index: 2;            /* behind hero text (z-index 6) */
   will-change: transform, opacity;
@@ -1758,7 +1750,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="hero-overlay"></div>
 
   <div class="hero-waves" id="heroWaves">
-    <img src="wave-group-cropped.png" alt="" class="hero-waves-svg">
+    <img src="wave-group.svg" alt="" class="hero-waves-svg">
   </div>
 
   <div class="hero-scroll">
