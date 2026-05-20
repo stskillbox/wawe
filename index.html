@@ -1449,7 +1449,7 @@ a.value:hover { color: var(--primary); }
 
 .footer-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
@@ -1508,7 +1508,7 @@ a.value:hover { color: var(--primary); }
   .footer { padding: 56px 24px 24px; }
   .footer::before { left: 24px; }
   .footer::after { right: 24px; }
-  .footer-row { grid-template-columns: 1fr 1fr; }
+  .footer-row { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 12px; }
 }
 
@@ -1940,36 +1940,32 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <section class="section" id="form">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>07 / Регистрация</div>
-      <h2 class="section-title">Подтвердите<br><em>участие</em></h2>
+    <div class="section-head" style="grid-template-columns: 1fr; text-align: center;">
+      <div class="section-tag" style="justify-content: center;"><span class="dash"></span>07 / Регистрация</div>
+      <h2 class="section-title" style="text-align: center; margin-left: 0;">Подтвердите<br><em>участие</em></h2>
     </div>
-    
+
     <div class="form-grid">
       <div class="form-info">
-        <h3>Заполните форму — наша Маша свяжется с вами, чтобы подтвердить <em>участие</em>.</h3>
-        <p>Мы перезвоним в течение рабочего дня и пришлём детали: программу, дресс-код, точку сбора и контакты на день мероприятия.</p>
+        <h3>Заполните форму, наша Маша свяжется с вами, чтобы подтвердить <em>участие</em>.</h3>
+      </div>
 
       <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)">
-        <div class="field-row">
-          <div class="field">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="ivan@company.ru" required>
-          </div>
-          <div class="field">
-            <label for="phone">Телефон</label>
-            <input type="tel" id="phone" placeholder="+7 000 000-00-00" required>
-          </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="ivan@company.ru" required>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="name">Имя и фамилия</label>
-            <input type="text" id="name" placeholder="Иван Петров" required>
-          </div>
-          <div class="field">
-            <label for="company">Компания</label>
-            <input type="text" id="company" placeholder="ООО Ромашка" required>
-          </div>
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" placeholder="+7 000 000-00-00" required>
+        </div>
+        <div class="field">
+          <label for="name">Имя и фамилия</label>
+          <input type="text" id="name" placeholder="Иван Петров" required>
+        </div>
+        <div class="field">
+          <label for="company">Компания</label>
+          <input type="text" id="company" placeholder="ООО Ромашка" required>
         </div>
         <div class="checkbox">
           <input type="checkbox" id="consent" required>
@@ -1989,10 +1985,6 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="logo-cropped.png" alt="ЦИФРОХОД">
-    </div>
-
     <div class="footer-row">
       <div class="footer-cell">
         <span class="label">Дата</span>
@@ -2005,10 +1997,6 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       <div class="footer-cell">
         <span class="label">E-mail</span>
         <a class="value" href="mailto:masha@cifrohod.ru">masha@cifrohod.ru</a>
-      </div>
-      <div class="footer-cell">
-        <span class="label">Маршрут</span>
-        <span class="value">СПб → Петергоф</span>
       </div>
     </div>
 
