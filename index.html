@@ -2169,8 +2169,17 @@ function drawRoute() {
   }
 
   // === continuous full path for creature motion (invisible) ===
-  // includes a straight L segment through each card body so creature glides through smoothly
-  let fullD = `M ${anchors[0].x.toFixed(2)} ${anchors[0].topY.toFixed(2)} `;
+  // includes entry from prompt and straight L segment through each card body
+  let fullD = '';
+  if (prompt) {
+    const pr = prompt.getBoundingClientRect();
+    const px = W / 2;
+    const py = pr.bottom - routeRect.top;
+    const a0 = anchors[0];
+    const midY = (py + a0.topY) / 2;
+    fullD = `M ${px.toFixed(2)} ${py.toFixed(2)} C ${px.toFixed(2)} ${midY.toFixed(2)}, ${a0.x.toFixed(2)} ${midY.toFixed(2)}, ${a0.x.toFixed(2)} ${a0.topY.toFixed(2)} `;
+  }
+  fullD += `L ${anchors[0].x.toFixed(2)} ${anchors[0].bottomY.toFixed(2)} `;
   for (let i = 0; i < anchors.length; i++) {
     const p = anchors[i];
     // go from top of card to bottom of card (straight vertical)
@@ -2180,6 +2189,15 @@ function drawRoute() {
       const midY = (p.bottomY + next.topY) / 2;
       fullD += `C ${p.x.toFixed(2)} ${midY.toFixed(2)}, ${next.x.toFixed(2)} ${midY.toFixed(2)}, ${next.x.toFixed(2)} ${next.topY.toFixed(2)} `;
     }
+  }
+
+  // === extend path from last stop to button ===
+  if (exitBtn) {
+    const btnRect = exitBtn.getBoundingClientRect();
+    const btnY = btnRect.top - routeRect.top;
+    const a8 = anchors[anchors.length - 1];
+    const midY = (a8.bottomY + btnY) / 2;
+    fullD += `C ${a8.x.toFixed(2)} ${midY.toFixed(2)}, ${(W / 2).toFixed(2)} ${midY.toFixed(2)}, ${(W / 2).toFixed(2)} ${btnY.toFixed(2)} `;
   }
 
   svg.innerHTML = `
