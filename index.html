@@ -2316,7 +2316,7 @@ function handleSubmit(e) {
   if (!phoneVal) {
     showError('phone', 'Только цифры');
   } else if (phoneVal.replace(/\D/g, '').length !== 11) {
-    showError('phone', 'Только цифры — 11 штук');
+    showError('phone', 'Введите 11 цифр');
   }
   if (!nameVal) showError('name', 'Введите имя и фамилию');
   if (!companyVal) showError('company', 'Введите название компании');
