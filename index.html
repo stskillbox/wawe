@@ -93,10 +93,11 @@ img { display: block; max-width: 100%; }
 }
 
 .section-head {
-  display: grid;
-  grid-template-columns: auto 1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 24px;
-  align-items: end;
   margin-bottom: 64px;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--line);
@@ -124,9 +125,8 @@ img { display: block; max-width: 100%; }
   font-size: clamp(48px, 6vw, 96px);
   line-height: 0.9;
   letter-spacing: -0.04em;
-  color: var(--neutral);
-  margin-left: auto;
-  text-align: right;
+  color: var(--primary);
+  text-align: center;
 }
 
 .section-title em {
@@ -550,110 +550,142 @@ img { display: block; max-width: 100%; }
 }
 
 /* ============== WHO ============== */
-.who-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 64px;
-  align-items: start;
+#who.section {
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
 }
 
-.who-list {
+.who-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+  min-height: calc(100vh - 62px);
+}
+
+.who-image-col {
+  border-right: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 36px;
+}
+
+.who-image-col img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  will-change: transform, opacity;
+  transform: translateX(-110%) rotate(-22deg);
+  opacity: 0;
+}
+
+.who-content-col {
   display: flex;
   flex-direction: column;
 }
 
-.who-item {
-  display: grid;
-  grid-template-columns: 60px 1fr auto;
-  align-items: center;
-  gap: 20px;
-  padding: 22px 0;
+.who-block {
+  padding: 36px 44px;
+  flex: 1;
+}
+
+.who-block:first-child {
   border-bottom: 1px solid var(--line);
-  position: relative;
-  cursor: default;
-  transition: padding-left 0.4s ease;
 }
 
-.who-item:first-child { border-top: 1px solid var(--line); }
-
-.who-item .num {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-
-.who-item .name {
+.who-block-title {
   font-family: var(--font-head);
-  font-weight: 600;
-  font-size: clamp(22px, 2.4vw, 36px);
-  letter-spacing: -0.025em;
+  font-weight: 800;
+  font-size: clamp(20px, 2.4vw, 34px);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
   color: var(--neutral);
-  text-transform: uppercase;
-  transition: color 0.3s, transform 0.4s ease;
+  margin-bottom: 20px;
 }
 
-.who-item .marker {
-  width: 36px;
-  height: 1px;
-  background: var(--line);
-  transition: width 0.4s, background 0.3s;
+.who-list-simple {
+  display: flex;
+  flex-direction: column;
 }
 
-.who-item:hover { padding-left: 16px; }
-.who-item:hover .name { color: var(--primary); }
-.who-item:hover .marker { background: var(--primary); width: 72px; }
-
-.who-item.us .name { color: var(--primary); }
-.who-item.us .marker { background: var(--primary); width: 72px; }
-
-.who-aside {
-  position: sticky;
-  top: 100px;
-}
-
-.who-aside h4 {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 24px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--line);
-}
-
-.benefit {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.benefit:last-of-type { border-bottom: none; }
-
-.benefit-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--primary);
-  letter-spacing: 0.04em;
-}
-
-.benefit-text {
+.who-row {
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.55;
-  color: var(--neutral);
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--text-dim);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.4;
+  display: flex;
+  align-items: baseline;
+}
+
+.who-row:first-child { border-top: 1px solid var(--line); }
+.who-row--us { color: var(--primary); }
+
+.who-marker {
+  font-family: var(--font-head);
+  font-weight: 700;
+  color: var(--primary);
+  margin-right: 12px;
+  font-size: 1.1em;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.who-row:hover .who-marker { transform: translateX(5px); }
+.who-benefit-row:hover .who-marker { transform: rotate(90deg); }
+
+.who-benefits-simple {
+  display: flex;
+  flex-direction: column;
+}
+
+.who-benefit-row {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--text-dim);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  line-height: 1.5;
+  display: flex;
+  align-items: baseline;
+}
+
+.who-benefit-row:first-child { border-top: 1px solid var(--line); }
+.who-benefit-row:last-child { border-bottom: none; }
+
+/* Staggered slide-in when layout enters viewport */
+.who-list-simple .who-row,
+.who-benefits-simple .who-benefit-row {
+  opacity: 0;
+  transform: translateX(-14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.who-layout.in .who-list-simple .who-row:nth-child(1),
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(1) { transition-delay: 0.3s; }
+.who-layout.in .who-list-simple .who-row:nth-child(2),
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(2) { transition-delay: 0.42s; }
+.who-layout.in .who-list-simple .who-row:nth-child(3),
+.who-layout.in .who-benefits-simple .who-benefit-row:nth-child(3) { transition-delay: 0.54s; }
+.who-layout.in .who-list-simple .who-row:nth-child(4) { transition-delay: 0.66s; }
+.who-layout.in .who-list-simple .who-row:nth-child(5) { transition-delay: 0.78s; }
+
+.who-layout.in .who-list-simple .who-row,
+.who-layout.in .who-benefits-simple .who-benefit-row {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 @media (max-width: 900px) {
-  .who-grid { grid-template-columns: 1fr; gap: 32px; }
-  .who-aside { position: static; }
+  .who-layout { grid-template-columns: 1fr; min-height: auto; }
+  .who-image-col { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 24px; }
+  .who-block { padding: 28px 24px; }
 }
 
-/* ============== PROGRAM (zigzag) ============== */
-/* ============== PROGRAM (3-col snake route) ============== */
+/* ============== PROGRAM (symmetric zigzag) ============== */
 .program-wrap {
   position: relative;
 }
@@ -705,38 +737,36 @@ img { display: block; max-width: 100%; }
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: 24px;
+  grid-template-columns: repeat(8, 1fr);
+  column-gap: 8px;
   row-gap: 140px;
 }
 
+/* Internal card layout: BIG NUMBER left, time/text right */
 .route-stop {
   position: relative;
   padding: 36px 0 0;
   min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 16px;
+  row-gap: 4px;
+  align-items: center;
+  text-align: left;
 }
 
-/* snake pattern: 1-2-3-2-1-2-3-2 (S-wave through 3 cols) */
-.route-stop:nth-child(1) { grid-column: 1; grid-row: 1; }
-.route-stop:nth-child(2) { grid-column: 2; grid-row: 2; }
-.route-stop:nth-child(3) { grid-column: 3; grid-row: 3; }
-.route-stop:nth-child(4) { grid-column: 2; grid-row: 4; }
-.route-stop:nth-child(5) { grid-column: 1; grid-row: 5; }
-.route-stop:nth-child(6) { grid-column: 2; grid-row: 6; }
-.route-stop:nth-child(7) { grid-column: 3; grid-row: 7; }
-.route-stop:nth-child(8) { grid-column: 2; grid-row: 8; }
+/* Ёлочка: нечётные всегда слева (3 кол.), чётные прогрессивно уходят вправо */
+.route-stop:nth-child(1) { grid-column: 1 / 4; grid-row: 1; }
+.route-stop:nth-child(2) { grid-column: 4 / 6; grid-row: 2; }
+.route-stop:nth-child(3) { grid-column: 1 / 4; grid-row: 3; }
+.route-stop:nth-child(4) { grid-column: 4 / 6; grid-row: 4; }
+.route-stop:nth-child(5) { grid-column: 1 / 4; grid-row: 5; }
+.route-stop:nth-child(6) { grid-column: 5 / 8; grid-row: 6; }
+.route-stop:nth-child(7) { grid-column: 1 / 4; grid-row: 7; }
+.route-stop:nth-child(8) { grid-column: 7 / 9; grid-row: 8; }
 
-/* text alignment so the dot lines up visually with the content */
-.route-stop:nth-child(1),
-.route-stop:nth-child(5) { text-align: left; }
-.route-stop:nth-child(2),
-.route-stop:nth-child(4),
-.route-stop:nth-child(6),
-.route-stop:nth-child(8) { text-align: center; }
-.route-stop:nth-child(3),
-.route-stop:nth-child(7) { text-align: right; }
-
-/* Dot anchored at TOP-CENTER of each stop block — this is what the SVG path passes through */
+/* Dot at top-center of each card */
 .route-stop::before {
   content: "";
   position: absolute;
@@ -756,9 +786,11 @@ img { display: block; max-width: 100%; }
   font-size: 12px;
   color: var(--primary);
   letter-spacing: 0.04em;
-  margin-bottom: 8px;
+  grid-column: 2;
+  grid-row: 1;
 }
 
+/* Number on the LEFT side of each card */
 .route-num {
   font-family: var(--font-head);
   font-weight: 800;
@@ -766,7 +798,12 @@ img { display: block; max-width: 100%; }
   line-height: 0.95;
   letter-spacing: -0.04em;
   color: var(--neutral);
-  margin-bottom: 12px;
+  grid-column: 1;
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  align-self: center;
+  transform: translateY(2px);
 }
 
 .route-num .label {
@@ -784,16 +821,10 @@ img { display: block; max-width: 100%; }
   font-size: 15px;
   line-height: 1.55;
   color: var(--text-dim);
-  max-width: 320px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 380px;
+  grid-column: 2;
+  grid-row: 2;
 }
-
-.route-stop:nth-child(1) .route-text,
-.route-stop:nth-child(5) .route-text { margin-left: 0; }
-
-.route-stop:nth-child(3) .route-text,
-.route-stop:nth-child(7) .route-text { margin-right: 0; }
 
 .route-place {
   display: inline-block;
@@ -811,12 +842,13 @@ img { display: block; max-width: 100%; }
   position: absolute;
   left: 0;
   top: 0;
-  width: 140px;
+  width: 300px;
   height: auto;
-  z-index: 4;
+  z-index: 10;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0 12px 32px rgba(231, 240, 175, 0.25));
+  opacity: 0.85;
+  mix-blend-mode: screen;
   will-change: left, top, transform;
 }
 
@@ -826,7 +858,6 @@ img { display: block; max-width: 100%; }
     column-gap: 20px;
     row-gap: 32px;
   }
-  /* mobile: collapse all stops into right column with dot on the left */
   .route-stop:nth-child(n) {
     grid-column: 2;
     grid-row: auto;
@@ -1449,7 +1480,7 @@ a.value:hover { color: var(--primary); }
 
 .footer-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
@@ -1508,19 +1539,17 @@ a.value:hover { color: var(--primary); }
   .footer { padding: 56px 24px 24px; }
   .footer::before { left: 24px; }
   .footer::after { right: 24px; }
-  .footer-row { grid-template-columns: 1fr 1fr; }
+  .footer-row { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 12px; }
 }
 
 /* ============== REVEAL ============== */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.8s ease;
 }
 .reveal.in {
   opacity: 1;
-  transform: translateY(0);
 }
 .reveal-stagger > * { transition-delay: var(--d, 0s); }
 </style>
@@ -1607,7 +1636,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>01 / Формат</div>
-      <h2 class="section-title">Что<br>будет<em>?</em></h2>
+      <h2 class="section-title">Что будет<em>?</em></h2>
     </div>
 
     <div class="what-grid">
@@ -1653,55 +1682,34 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <section class="section" id="who">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>02 / Аудитория</div>
-      <h2 class="section-title">Кто<br>плывёт<em>?</em></h2>
-    </div>
-
-    <div class="who-grid">
-      <div class="who-list">
-        <div class="who-item reveal">
-          <span class="num">01</span>
-          <span class="name">Генеральные директора</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item reveal" style="--d:0.08s">
-          <span class="num">02</span>
-          <span class="name">Директора по цифровизации</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item reveal" style="--d:0.16s">
-          <span class="num">03</span>
-          <span class="name">ИТ-директора</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item reveal" style="--d:0.24s">
-          <span class="num">04</span>
-          <span class="name">Финансовые директора</span>
-          <span class="marker"></span>
-        </div>
-        <div class="who-item us reveal" style="--d:0.32s">
-          <span class="num">05</span>
-          <span class="name">— и мы</span>
-          <span class="marker"></span>
-        </div>
+    <div class="who-layout reveal">
+      <!-- LEFT: creature -->
+      <div class="who-image-col">
+        <img src="creature.png" alt="Морское чудовище">
       </div>
 
-      <aside class="who-aside">
-        <h4>Что получите?</h4>
-        <div class="benefit">
-          <span class="benefit-num">01</span>
-          <span class="benefit-text">Войдёте в профессиональное сообщество лидеров цифровой трансформации.</span>
+      <!-- RIGHT: two blocks stacked -->
+      <div class="who-content-col">
+        <div class="who-block">
+          <h3 class="who-block-title">Кто плывёт?</h3>
+          <div class="who-list-simple">
+            <div class="who-row"><span class="who-marker">—</span>Генеральные директора</div>
+            <div class="who-row"><span class="who-marker">—</span>Директора по цифровизации</div>
+            <div class="who-row"><span class="who-marker">—</span>ИТ-директора</div>
+            <div class="who-row"><span class="who-marker">—</span>Финансовые директора</div>
+            <div class="who-row who-row--us"><span class="who-marker">—</span>Мы</div>
+          </div>
         </div>
-        <div class="benefit">
-          <span class="benefit-num">02</span>
-          <span class="benefit-text">Найдёте поставщиков и заказчиков в живом неформальном общении.</span>
+
+        <div class="who-block">
+          <h3 class="who-block-title">Что получите?</h3>
+          <div class="who-benefits-simple">
+            <div class="who-benefit-row"><span class="who-marker">+</span>Войдёте в профессиональное сообщество</div>
+            <div class="who-benefit-row"><span class="who-marker">+</span>Найдёте поставщиков и заказчиков</div>
+            <div class="who-benefit-row"><span class="who-marker">+</span>Классно проведёте пятницу</div>
+          </div>
         </div>
-        <div class="benefit">
-          <span class="benefit-num">03</span>
-          <span class="benefit-text">Классно проведёте пятницу — с видами Невы и кулебяками от шеф-повара.</span>
-        </div>
-      </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -1713,81 +1721,73 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>03 / Расписание</div>
-      <h2 class="section-title">Программа<br>и <em>маршрут</em></h2>
+      <h2 class="section-title">Программа и <em>маршрут</em></h2>
     </div>
 
     <div class="program-wrap">
-      <div class="program-prompt">
-        <div class="program-prompt-label">Скрольте, чтобы проплыть маршрут</div>
-        <svg class="program-prompt-arrow" width="32" height="32" viewBox="0 0 32 32" fill="none">
-          <path d="M16 4 L16 26 M6 18 L16 28 L26 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-
       <div class="route" id="route">
+        <div class="program-prompt" id="programPrompt">
+          <div class="program-prompt-label">Скрольте, чтобы проплыть маршрут</div>
+          <svg class="program-prompt-arrow" width="32" height="32" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4 L16 26 M6 18 L16 28 L26 18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <svg class="route-svg" id="routeSvg" preserveAspectRatio="none"></svg>
-        <img class="route-creature" id="routeCreature" src="creature.png" alt="">
+        <img class="route-creature" id="routeCreature" src="ship.svg" alt="">
 
         <div class="route-grid" id="routeGrid">
           <div class="route-stop reveal">
+            <div class="route-num">01</div>
             <div class="route-time">10:00 — 10:45</div>
-            <div class="route-num">01<span class="label">Сбор в порту</span></div>
-            <div class="route-text">Встретимся в порту, познакомимся, перекусим и отчалим в добрый путь.</div>
-            <span class="route-place">Порт СПб</span>
+            <div class="route-text">Встретимся в&nbsp;порту, познакомимся,<br>перекусим и&nbsp;отчалим в&nbsp;добрый путь.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.08s">
+            <div class="route-num">02</div>
             <div class="route-time">10:45</div>
-            <div class="route-num">02<span class="label">Отплытие</span></div>
-            <div class="route-text">Отплываем в Петергоф. На борту — кофе, виды и первое знакомство.</div>
-            <span class="route-place">Нева</span>
+            <div class="route-text">Отплываем в Петергоф.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.16s">
+            <div class="route-num">03</div>
             <div class="route-time">11:00 — 12:30</div>
-            <div class="route-num">03<span class="label">Деловая программа</span></div>
-            <div class="route-text">Погружаемся в деловую программу. Кейсы, дискуссии, обмен опытом.</div>
-            <span class="route-place">Главный салон</span>
+            <div class="route-text">Погружаемся в&nbsp;деловую программу.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.24s">
+            <div class="route-num">04</div>
             <div class="route-time">12:30 — 14:00</div>
-            <div class="route-num">04<span class="label">Обед на борту</span></div>
-            <div class="route-text">Сделаем паузу на кофе и заякорим смыслы. Кулебяки от шеф-повара.</div>
-            <span class="route-place">Палуба</span>
+            <div class="route-text">Сделаем паузу<br>на&nbsp;кофе и&nbsp;заякорим смыслы.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.32s">
+            <div class="route-num">05</div>
             <div class="route-time">14:30 — 16:00</div>
-            <div class="route-num">05<span class="label">Швартовка</span></div>
-            <div class="route-text">Сменим локацию и отправимся на дневной фуршет в панорамном шатре.</div>
-            <span class="route-place">Петергоф</span>
+            <div class="route-text">Сменим локацию и&nbsp;отправимся<br>на&nbsp;дневной фуршет в&nbsp;панорамном шатре.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.4s">
+            <div class="route-num">06</div>
             <div class="route-time">16:15 — 17:15</div>
-            <div class="route-num">06<span class="label">Экскурсия</span></div>
-            <div class="route-text">Пойдём на камерную экскурсию по Большому дворцу в мини-группах.</div>
-            <span class="route-place">Большой дворец</span>
+            <div class="route-text">Пойдем на&nbsp;камерную экскурсию<br>по&nbsp;Большому дворцу в&nbsp;мини-группах.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.48s">
+            <div class="route-num">07</div>
             <div class="route-time">17:45 — 18:00</div>
-            <div class="route-num">07<span class="label">Возврат</span></div>
-            <div class="route-text">Вернёмся на судно и отправимся в Санкт-Петербург.</div>
-            <span class="route-place">Палуба</span>
+            <div class="route-text">Вернёмся на&nbsp;судно и&nbsp;отправимся<br>в&nbsp;Санкт-Петербург.</div>
           </div>
 
           <div class="route-stop reveal" style="--d:0.56s">
+            <div class="route-num">08</div>
             <div class="route-time">18:00 — 21:00</div>
-            <div class="route-num">08<span class="label">Игра + Банкет</span></div>
-            <div class="route-text">Завершим игрой «Эврика» и банкетом под закат над Невой.</div>
-            <span class="route-place">Главный салон</span>
+            <div class="route-text">Завершим игрой «Эврика» и&nbsp;банкетом.</div>
           </div>
         </div>
       </div>
 
       <div style="text-align:center;margin-top:48px;">
+        <div style="width:1px;height:64px;border-left:1.4px dashed rgba(255,255,255,0.28);margin:0 auto 32px;"></div>
         <a href="#form" class="btn btn-primary">
           Я в списках
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1804,7 +1804,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>04 / Ценности</div>
-      <h2 class="section-title">Три кита<br><em>Цифрохода</em></h2>
+      <h2 class="section-title">Три кита <em>Цифрохода</em></h2>
     </div>
 
     <div class="values-stage">
@@ -1841,7 +1841,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>05 / Детали</div>
-      <h2 class="section-title">На теплоходе<br><em>музыка</em> и… мы</h2>
+      <h2 class="section-title">На теплоходе <em>музыка</em> и… мы</h2>
     </div>
 
     <div class="about-grid">
@@ -1894,7 +1894,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>06 / Поддержка</div>
-      <h2 class="section-title">Генеральные<br>партнёры</h2>
+      <h2 class="section-title">Генеральные партнёры</h2>
     </div>
 
     <div class="partners-grid">
@@ -1940,15 +1940,15 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <section class="section" id="form">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>07 / Регистрация</div>
-      <h2 class="section-title">Подтвердите<br><em>участие</em></h2>
+    <div class="section-head" style="grid-template-columns: 1fr; text-align: center;">
+      <div class="section-tag" style="justify-content: center;"><span class="dash"></span>07 / Регистрация</div>
+      <h2 class="section-title">Подтвердите <em>участие</em></h2>
     </div>
-    
+
     <div class="form-grid">
       <div class="form-info">
-        <h3>Заполните форму — наша Маша свяжется с вами, чтобы подтвердить <em>участие</em>.</h3>
-        <p>Мы перезвоним в течение рабочего дня и пришлём детали: программу, дресс-код, точку сбора и контакты на день мероприятия.</p>
+        <h3>Заполните форму, наша Маша свяжется с вами, чтобы подтвердить <em>участие</em>.</h3>
+      </div>
 
         <div class="form-contacts">
           <div class="form-contact">
@@ -1967,25 +1967,21 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       </div>
 
       <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)">
-        <div class="field-row">
-          <div class="field">
-            <label for="email">E-mail</label>
-            <input type="email" id="email" placeholder="ivan@company.ru" required>
-          </div>
-          <div class="field">
-            <label for="phone">Телефон</label>
-            <input type="tel" id="phone" placeholder="+7 000 000-00-00" required>
-          </div>
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="ivan@company.ru" required>
         </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="name">Имя и фамилия</label>
-            <input type="text" id="name" placeholder="Иван Петров" required>
-          </div>
-          <div class="field">
-            <label for="company">Компания</label>
-            <input type="text" id="company" placeholder="ООО Ромашка" required>
-          </div>
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" placeholder="+7 000 000-00-00" required>
+        </div>
+        <div class="field">
+          <label for="name">Имя и фамилия</label>
+          <input type="text" id="name" placeholder="Иван Петров" required>
+        </div>
+        <div class="field">
+          <label for="company">Компания</label>
+          <input type="text" id="company" placeholder="ООО Ромашка" required>
         </div>
         <div class="checkbox">
           <input type="checkbox" id="consent" required>
@@ -2005,10 +2001,6 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <footer class="footer">
   <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="logo-cropped.png" alt="ЦИФРОХОД">
-    </div>
-
     <div class="footer-row">
       <div class="footer-cell">
         <span class="label">Дата</span>
@@ -2021,10 +2013,6 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       <div class="footer-cell">
         <span class="label">E-mail</span>
         <a class="value" href="mailto:masha@cifrohod.ru">masha@cifrohod.ru</a>
-      </div>
-      <div class="footer-cell">
-        <span class="label">Маршрут</span>
-        <span class="value">СПб → Петергоф</span>
       </div>
     </div>
 
@@ -2154,16 +2142,26 @@ function drawRoute() {
   stops.forEach((stop) => {
     const r = stop.getBoundingClientRect();
     const cx = r.left + r.width / 2 - routeRect.left;
-    const topY    = r.top - routeRect.top;          // dot is here (translateY -50%)
-    const bottomY = r.bottom - routeRect.top + 18;  // exit just below card bottom
+    const topY    = r.top - routeRect.top;
+    const bottomY = r.bottom - routeRect.top + 18;
     anchors.push({ x: cx, topY, bottomY });
   });
   if (anchors.length < 2) return;
 
+  // === line from scroll prompt arrow to first stop ===
+  let entryD = '';
+  const prompt = document.getElementById('programPrompt');
+  if (prompt) {
+    const pr = prompt.getBoundingClientRect();
+    const px = W / 2;
+    const py = pr.bottom - routeRect.top;
+    const a0 = anchors[0];
+    const midY = (py + a0.topY) / 2;
+    entryD = `M ${px.toFixed(2)} ${py.toFixed(2)} C ${px.toFixed(2)} ${midY.toFixed(2)}, ${a0.x.toFixed(2)} ${midY.toFixed(2)}, ${a0.x.toFixed(2)} ${a0.topY.toFixed(2)} `;
+  }
+
   // === visible path: only the curves between cards (in the gap region) ===
-  // strong curvature: control points pulled in toward midpoint Y but kept at start/end X,
-  // and we add a horizontal swing for a more pronounced wave
-  let visibleD = '';
+  let visibleD = entryD;
   for (let i = 0; i < anchors.length - 1; i++) {
     const a = anchors[i];
     const b = anchors[i + 1];
@@ -2197,6 +2195,7 @@ function drawRoute() {
 }
 
 let routePathLen = 0;
+let prevCreatureX = null;
 function updateCreature() {
   const route = document.getElementById('route');
   const creature = document.getElementById('routeCreature');
@@ -2214,9 +2213,13 @@ function updateCreature() {
     routePathLen = path.getTotalLength();
   }
   const pt = path.getPointAtLength(routePathLen * progress);
+
+  const scaleX = (prevCreatureX !== null && pt.x < prevCreatureX) ? -1 : 1;
+  prevCreatureX = pt.x;
+
   creature.style.left = pt.x + 'px';
   creature.style.top  = pt.y + 'px';
-  creature.style.transform = `translate(-50%,-50%)`;
+  creature.style.transform = `translate(-50%,-50%) scaleX(${scaleX})`;
 }
 
 window.addEventListener('load', () => {
@@ -2229,6 +2232,35 @@ window.addEventListener('resize', () => {
   updateCreature();
 });
 window.addEventListener('scroll', updateCreature, { passive: true });
+
+// ============== WHO CREATURE SCROLL SCRUB ==============
+function updateWhoCreature() {
+  const section = document.getElementById('who');
+  const img = section && section.querySelector('.who-image-col img');
+  if (!img) return;
+
+  const rect = section.getBoundingClientRect();
+  const viewH = window.innerHeight;
+
+  // растягиваем анимацию на полтора экрана скрола — движение заметное
+  const raw = (viewH - rect.top) / (viewH * 1.4);
+  const p = Math.min(1, Math.max(0, raw));
+
+  const e = 1 - Math.pow(1 - p, 3);
+
+  const tx    = (1 - e) * -130;
+  const rot   = -40 + e * 65;
+  const scale = 0.55 + e * 0.45;
+  const skx   = (1 - e) * -15;
+  const op    = Math.min(1, p * 3);
+
+  img.style.transform = `translateX(${tx.toFixed(1)}%) rotate(${rot.toFixed(1)}deg) skewX(${skx.toFixed(1)}deg) scale(${scale.toFixed(3)})`;
+  img.style.opacity   = op.toFixed(3);
+}
+
+window.addEventListener('scroll', updateWhoCreature, { passive: true });
+window.addEventListener('load', updateWhoCreature);
+window.addEventListener('resize', updateWhoCreature);
 
 // ============== FORM ==============
 function handleSubmit(e) {
