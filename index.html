@@ -1651,25 +1651,12 @@ a.value:hover { color: var(--primary); }
 .hero-motion-group {
   position: absolute;
   right: -24px;
-  bottom: 52px;
+  top: 60px;
   width: clamp(360px, 50vw, 700px);
   pointer-events: none;
-  z-index: 10;           /* sits above the what-section as it bleeds in */
+  z-index: 10;
   will-change: transform, opacity;
   animation: ship-arrive 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
-}
-
-.hero-route-label {
-  font-family: var(--font-mono);
-  font-size: clamp(10px, 1vw, 13px);
-  letter-spacing: 0.2em;
-  color: var(--primary);
-  text-transform: uppercase;
-  text-align: right;
-  padding-right: 36px;
-  margin-bottom: 10px;
-  opacity: 0;
-  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) 1.5s both;
 }
 
 .hero-ship-img {
@@ -1782,9 +1769,8 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
     </svg>
   </div>
 
-  <!-- Ship + route label — parallax group, bleeds into 2nd screen on scroll -->
+  <!-- Ship — top-right corner, parallax on scroll -->
   <div class="hero-motion-group" id="heroMotionGroup" aria-hidden="true">
-    <p class="hero-route-label">по&nbsp;Неве&nbsp;→&nbsp;в&nbsp;Петергоф</p>
     <img src="ship.svg" alt="" class="hero-ship-img">
   </div>
 
