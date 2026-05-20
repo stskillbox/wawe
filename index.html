@@ -1956,11 +1956,11 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)" novalidate>
         <div class="field">
           <label for="email">E-mail</label>
-          <input type="email" id="email" placeholder="ivan@company.ru" required>
+          <input type="email" id="email" placeholder="ivan@company.ru" required oninput="this.value=this.value.replace(/[^a-zA-Z0-9@._+\-]/g,'')">
         </div>
         <div class="field">
           <label for="phone">Телефон</label>
-          <input type="tel" id="phone" placeholder="+7 000 000-00-00" required oninput="this.value=this.value.replace(/[^\d\s\+\-\(\)]/g,'')">
+          <input type="tel" id="phone" placeholder="+7 00000000000" required oninput="filterPhone(this)">
         </div>
         <div class="field">
           <label for="name">Имя и фамилия</label>
@@ -2279,6 +2279,13 @@ window.addEventListener('load', updateWhoCreature);
 window.addEventListener('resize', updateWhoCreature);
 
 // ============== FORM ==============
+function filterPhone(input) {
+  let v = input.value;
+  const hasPlus = v.startsWith('+');
+  v = v.replace(/\D/g, '');
+  input.value = hasPlus ? '+' + v : v;
+}
+
 function handleSubmit(e) {
   e.preventDefault();
 
@@ -2288,8 +2295,7 @@ function handleSubmit(e) {
   let valid = true;
 
   function showError(id, msg) {
-    const input = document.getElementById(id);
-    const field = input.closest('.field');
+    const field = document.getElementById(id).closest('.field');
     field.classList.add('error');
     const err = document.createElement('span');
     err.className = 'field-error';
@@ -2304,11 +2310,13 @@ function handleSubmit(e) {
   const companyVal = document.getElementById('company').value.trim();
   const consent = document.getElementById('consent').checked;
 
-  if (!emailVal) showError('email', 'Введите e-mail');
+  if (!emailVal || !emailVal.includes('@')) {
+    showError('email', 'Только английские буквы');
+  }
   if (!phoneVal) {
-    showError('phone', 'Введите телефон');
-  } else if (!/^[\d\s\+\-\(\)]+$/.test(phoneVal) || phoneVal.replace(/\D/g, '').length < 10) {
-    showError('phone', 'Только цифры, минимум 10');
+    showError('phone', 'Только цифры');
+  } else if (phoneVal.replace(/\D/g, '').length !== 11) {
+    showError('phone', 'Только цифры — 11 штук');
   }
   if (!nameVal) showError('name', 'Введите имя и фамилию');
   if (!companyVal) showError('company', 'Введите название компании');
