@@ -1357,6 +1357,9 @@ a.value:hover { color: var(--primary); }
 
 .field input::placeholder { color: var(--text-muted); }
 
+.field.error input { color: #ff5c5c; }
+.field-error { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: #ff5c5c; text-transform: uppercase; margin-top: 2px; }
+
 .field-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1950,7 +1953,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
         <h3>Заполните форму, наша Маша свяжется с вами, чтобы подтвердить <em>участие</em>.</h3>
       </div>
 
-      <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)">
+      <form class="lead-form" id="leadForm" onsubmit="handleSubmit(event)" novalidate>
         <div class="field">
           <label for="email">E-mail</label>
           <input type="email" id="email" placeholder="ivan@company.ru" required>
@@ -1965,7 +1968,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
         </div>
         <div class="field">
           <label for="company">Компания</label>
-          <input type="text" id="company" placeholder="ООО Ромашка" required>
+          <input type="text" id="company" placeholder='ООО "Компания"' required>
         </div>
         <div class="checkbox">
           <input type="checkbox" id="consent" required>
@@ -2278,6 +2281,41 @@ window.addEventListener('resize', updateWhoCreature);
 // ============== FORM ==============
 function handleSubmit(e) {
   e.preventDefault();
+
+  document.querySelectorAll('#leadForm .field.error').forEach(f => f.classList.remove('error'));
+  document.querySelectorAll('#leadForm .field-error').forEach(f => f.remove());
+
+  let valid = true;
+
+  function showError(id, msg) {
+    const input = document.getElementById(id);
+    const field = input.closest('.field');
+    field.classList.add('error');
+    const err = document.createElement('span');
+    err.className = 'field-error';
+    err.textContent = msg;
+    field.appendChild(err);
+    valid = false;
+  }
+
+  const emailVal = document.getElementById('email').value.trim();
+  const phoneVal = document.getElementById('phone').value.trim();
+  const nameVal = document.getElementById('name').value.trim();
+  const companyVal = document.getElementById('company').value.trim();
+  const consent = document.getElementById('consent').checked;
+
+  if (!emailVal) showError('email', 'Введите e-mail');
+  if (!phoneVal) {
+    showError('phone', 'Введите телефон');
+  } else if (!/^[\d\s\+\-\(\)]+$/.test(phoneVal) || phoneVal.replace(/\D/g, '').length < 10) {
+    showError('phone', 'Только цифры, минимум 10');
+  }
+  if (!nameVal) showError('name', 'Введите имя и фамилию');
+  if (!companyVal) showError('company', 'Введите название компании');
+  if (!consent) { valid = false; }
+
+  if (!valid) return;
+
   const btn = e.target.querySelector('.form-submit');
   const orig = btn.innerHTML;
   btn.textContent = 'Спасибо! Маша свяжется ✓';
@@ -2286,6 +2324,8 @@ function handleSubmit(e) {
     btn.innerHTML = orig;
     btn.style.background = '';
     e.target.reset();
+    document.querySelectorAll('#leadForm .field.error').forEach(f => f.classList.remove('error'));
+    document.querySelectorAll('#leadForm .field-error').forEach(f => f.remove());
   }, 3000);
 }
 </script>
