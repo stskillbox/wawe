@@ -93,10 +93,9 @@ img { display: block; max-width: 100%; }
 }
 
 .section-head {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: end;
   gap: 24px;
   margin-bottom: 64px;
   padding-bottom: 24px;
@@ -125,8 +124,9 @@ img { display: block; max-width: 100%; }
   font-size: clamp(48px, 6vw, 96px);
   line-height: 0.9;
   letter-spacing: -0.04em;
-  color: var(--primary);
-  text-align: center;
+  color: var(--neutral);
+  margin-left: auto;
+  text-align: right;
 }
 
 .section-title em {
@@ -1636,7 +1636,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>01 / Формат</div>
-      <h2 class="section-title">Что будет<em>?</em></h2>
+      <h2 class="section-title">Что<br>будет<em>?</em></h2>
     </div>
 
     <div class="what-grid">
@@ -1786,8 +1786,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
         </div>
       </div>
 
-      <div style="text-align:center;margin-top:48px;">
-        <div style="width:1px;height:64px;border-left:1.4px dashed rgba(255,255,255,0.28);margin:0 auto 32px;"></div>
+      <div id="routeExit" style="text-align:center;margin-top:24px;">
         <a href="#form" class="btn btn-primary">
           Я в списках
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -2155,6 +2154,17 @@ function drawRoute() {
     // gentle S-curve: controls share midY, anchored at each endpoint's x
     visibleD += `M ${startX.toFixed(2)} ${startY.toFixed(2)} `;
     visibleD += `C ${startX.toFixed(2)} ${midY.toFixed(2)}, ${endX.toFixed(2)} ${midY.toFixed(2)}, ${endX.toFixed(2)} ${endY.toFixed(2)} `;
+  }
+
+  // === line from last stop to button ===
+  const exitBtn = document.getElementById('routeExit');
+  if (exitBtn) {
+    const btnRect = exitBtn.getBoundingClientRect();
+    const btnY = btnRect.top - routeRect.top;
+    const a8 = anchors[anchors.length - 1];
+    const midY = (a8.bottomY + btnY) / 2;
+    visibleD += `M ${a8.x.toFixed(2)} ${a8.bottomY.toFixed(2)} `;
+    visibleD += `C ${a8.x.toFixed(2)} ${midY.toFixed(2)}, ${(W / 2).toFixed(2)} ${midY.toFixed(2)}, ${(W / 2).toFixed(2)} ${btnY.toFixed(2)} `;
   }
 
   // === continuous full path for creature motion (invisible) ===
