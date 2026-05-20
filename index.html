@@ -1650,9 +1650,9 @@ a.value:hover { color: var(--primary); }
 /* ── Hero motion group: ship + route label (parallax into 2nd screen) ── */
 .hero-motion-group {
   position: absolute;
-  right: -24px;
-  top: 60px;
-  width: clamp(360px, 50vw, 700px);
+  right: 0;
+  top: 40px;
+  width: clamp(400px, 55vw, 760px);
   pointer-events: none;
   z-index: 2;            /* behind hero text (z-index 6) */
   will-change: transform, opacity;
@@ -1665,9 +1665,9 @@ a.value:hover { color: var(--primary); }
   display: block;
   opacity: 0.72;
   will-change: transform;
-  /* soft fade: stern left → visible → fade right edge + fade top */
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 20%, black 65%, transparent 100%);
-  mask-image:         linear-gradient(to right, transparent 0%, black 20%, black 65%, transparent 100%);
+  /* fade stern in from left, nose fades softly at right screen edge */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 14%, black 82%, transparent 100%);
+  mask-image:         linear-gradient(to right, transparent 0%, black 14%, black 82%, transparent 100%);
   animation: ship-float 7s ease-in-out 2.4s infinite;
 }
 
