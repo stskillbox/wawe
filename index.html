@@ -505,43 +505,50 @@ img { display: block; max-width: 100%; }
 .what-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  height: 420px;
   border-top: 1px solid var(--line);
-  margin-bottom: 64px;
+  margin-bottom: 40px;
 }
 
 .what-stats {
   border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
 }
 
 .what-stat-row {
-  padding: 40px 40px;
+  padding: 0 32px;
   border-bottom: 1px solid var(--line);
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  flex-direction: row;
+  align-items: center;
+  gap: 28px;
+  flex: 1;
 }
 
 .what-stat-num {
   font-family: var(--font-head);
   font-weight: 800;
-  font-size: clamp(64px, 7vw, 100px);
-  line-height: 0.9;
+  font-size: clamp(44px, 4.5vw, 68px);
+  line-height: 1;
   letter-spacing: -0.04em;
   color: var(--neutral);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .what-stat-unit {
-  font-size: 0.3em;
+  font-size: 0.38em;
   color: var(--text-dim);
   font-weight: 500;
   letter-spacing: -0.01em;
-  margin-left: 6px;
+  margin-left: 4px;
 }
 
 .what-stat-text {
   font-family: var(--font-body);
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--text-dim);
 }
 
@@ -553,59 +560,43 @@ img { display: block; max-width: 100%; }
 .what-photo {
   background: var(--bg-alt);
   border-bottom: 1px solid var(--line);
-  min-height: 220px;
-}
-
-@media (max-width: 768px) {
-  .what-layout { grid-template-columns: 1fr; }
-  .what-stats { border-right: none; }
-  .what-photos { display: none; }
-  .what-stat-row { padding: 28px 0; }
-}
-
-/* moving tag line */
-.tag-line {
-  margin-top: 56px;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 28px 0;
-  position: relative;
   overflow: hidden;
 }
 
-.tag-track {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  animation: tagslide 22s linear infinite;
-  width: max-content;
+.what-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.tag-item {
+@media (max-width: 768px) {
+  .what-layout { grid-template-columns: 1fr; height: auto; }
+  .what-stats { border-right: none; }
+  .what-photos { display: none; }
+  .what-stat-row { padding: 20px 0; min-height: 100px; }
+}
+
+/* moving tag line */
+.tag-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+  margin-top: 40px;
+}
+
+.tag-box {
   font-family: var(--font-head);
   font-weight: 700;
-  font-size: clamp(24px, 3vw, 44px);
+  font-size: clamp(18px, 2.2vw, 32px);
   letter-spacing: -0.02em;
   color: var(--neutral);
-  padding: 0 36px;
-  white-space: nowrap;
   text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 36px;
-}
-
-.tag-item::after {
-  content: "";
-  width: 12px;
-  height: 12px;
-  background: var(--primary);
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-@keyframes tagslide {
-  to { transform: translateX(-50%); }
+  text-align: center;
+  padding: 28px 16px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
 
 @media (max-width: 900px) {
@@ -1619,6 +1610,54 @@ a.value:hover { color: var(--primary); }
   opacity: 1;
 }
 .reveal-stagger > * { transition-delay: var(--d, 0s); }
+
+/* ── Hero ship ── */
+.hero-ship {
+  position: absolute;
+  right: -24px;
+  bottom: 64px;
+  width: clamp(340px, 46vw, 660px);
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform, opacity;
+  /* fade stern (left) into background, keep nose (right) sharp */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 14%, black 30%);
+  mask-image:         linear-gradient(to right, transparent 0%, rgba(0,0,0,0.55) 14%, black 30%);
+  animation: ship-arrive 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.85s both;
+}
+
+.hero-ship-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  mix-blend-mode: screen;
+  opacity: 0.78;
+  will-change: transform;
+  animation: ship-float 7s ease-in-out 2.4s infinite;
+}
+
+@keyframes ship-arrive {
+  from { opacity: 0; transform: translateX(72px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ship-float {
+  0%,  100% { transform: translateY(0px)   rotate(0deg); }
+  35%        { transform: translateY(-10px) rotate(0.45deg); }
+  65%        { transform: translateY(-5px)  rotate(-0.25deg); }
+}
+
+@media (max-width: 900px) {
+  .hero-ship {
+    bottom: 32px;
+    right: -32px;
+    width: clamp(220px, 58vw, 400px);
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-ship { display: none; }
+}
 </style>
 </head>
 <body>
@@ -1731,11 +1770,11 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       <div class="what-stats">
         <div class="what-stat-row reveal">
           <div class="what-stat-num"><span class="count" data-target="1">0</span><span class="what-stat-unit">день</span></div>
-          <div class="what-stat-text">живого общения на теплоходе премиум-класса, вместо скучных пленарных сессий</div>
+          <div class="what-stat-text">живого общения на теплоходе премиум-класса,<br>вместо скучных пленарных сессий</div>
         </div>
         <div class="what-stat-row reveal" style="--d:0.1s">
           <div class="what-stat-num"><span class="count" data-target="20">0</span><span class="what-stat-unit">+</span></div>
-          <div class="what-stat-text">крутых цифровых продуктов, которые уже вывели пользователей на новый уровень</div>
+          <div class="what-stat-text">крутых цифровых продуктов, которые уже вывели<br>пользователей на новый уровень</div>
         </div>
         <div class="what-stat-row reveal" style="--d:0.2s">
           <div class="what-stat-num"><span class="count" data-target="150">0</span></div>
@@ -1748,22 +1787,11 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
       </div>
     </div>
 
-    <!-- Moving tag line with yellow dots -->
-    <div class="tag-line">
-      <div class="tag-track" id="tagTrack">
-        <span class="tag-item">ERP</span>
-        <span class="tag-item">Логистика</span>
-        <span class="tag-item">Переработка</span>
-        <span class="tag-item">Сбыт</span>
-        <span class="tag-item">ERP</span>
-        <span class="tag-item">Логистика</span>
-        <span class="tag-item">Переработка</span>
-        <span class="tag-item">Сбыт</span>
-        <span class="tag-item">ERP</span>
-        <span class="tag-item">Логистика</span>
-        <span class="tag-item">Переработка</span>
-        <span class="tag-item">Сбыт</span>
-      </div>
+    <div class="tag-grid">
+      <div class="tag-box">ERP</div>
+      <div class="tag-box">Логистика</div>
+      <div class="tag-box">Переработка</div>
+      <div class="tag-box">Сбыт</div>
     </div>
   </div>
 </section>
