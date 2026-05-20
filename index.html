@@ -1357,8 +1357,8 @@ a.value:hover { color: var(--primary); }
 
 .field input::placeholder { color: var(--text-muted); }
 
-.field.error input { color: #ff5c5c; }
-.field-error { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: #ff5c5c; text-transform: uppercase; margin-top: 2px; }
+.field.error input { color: var(--primary); }
+.field-error { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em; color: var(--primary); text-transform: uppercase; margin-top: 2px; }
 
 .field-row {
   display: grid;
@@ -1960,7 +1960,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
         </div>
         <div class="field">
           <label for="phone">Телефон</label>
-          <input type="tel" id="phone" placeholder="+7 000 000-00-00" required>
+          <input type="tel" id="phone" placeholder="+7 000 000-00-00" required oninput="this.value=this.value.replace(/[^\d\s\+\-\(\)]/g,'')">
         </div>
         <div class="field">
           <label for="name">Имя и фамилия</label>
