@@ -100,7 +100,6 @@ img { display: block; max-width: 100%; }
   gap: 24px;
   margin-bottom: 64px;
   padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
 }
 
 .section-tag {
@@ -509,19 +508,16 @@ img { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 420px;
-  border-top: 1px solid var(--line);
   margin-bottom: 40px;
 }
 
 .what-stats {
-  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
 }
 
 .what-stat-row {
   padding: 0 32px;
-  border-bottom: 1px solid var(--line);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1194,10 +1190,12 @@ img { display: block; max-width: 100%; }
 
 .values-mobile-words { display: none; }
 
-#values::before, #values::after { display: none; }
-#about::before, #about::after { display: none; }
+.section::before, .section::after { display: none; }
+.nav { display: none; }
 #partners { border-top: none; padding-top: 0; }
-#partners::before, #partners::after { display: none; }
+.hero::before, .hero::after { display: none; }
+.hero-corner { display: none; }
+.hero { border-bottom: none; }
 
 .partners-layout {
   display: grid;
@@ -2172,7 +2170,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- PARTNERS -->
 <!-- ====================================================================== -->
-<section class="section" id="partners" style="padding-top:0;">
+<section class="section" id="partners" style="padding-top:0; border-top:none;">
   <div class="section-inner">
     <h2 class="section-title" style="margin-bottom:32px;">Генеральные партнёры<br>Цифрохода</h2>
     <div class="partners-layout">
@@ -2637,6 +2635,33 @@ function handleSubmit(e) {
     document.querySelectorAll('#leadForm .field-error').forEach(f => f.remove());
   }, 3000);
 }
+
+// ============== PHOTO SLIDER ==============
+(function () {
+  const slides = document.querySelectorAll('.what-slide');
+  const dots   = document.querySelectorAll('.what-dot');
+  const prev   = document.querySelector('.what-arrow-prev');
+  const next   = document.querySelector('.what-arrow-next');
+  if (!slides.length) return;
+  let cur = 0, timer;
+
+  function goTo(idx) {
+    slides[cur].classList.remove('active');
+    dots[cur].classList.remove('active');
+    cur = (idx + slides.length) % slides.length;
+    slides[cur].classList.add('active');
+    dots[cur].classList.add('active');
+  }
+
+  function start() { timer = setInterval(() => goTo(cur + 1), 3800); }
+  function reset()  { clearInterval(timer); start(); }
+
+  dots.forEach((d, i) => d.addEventListener('click', () => { goTo(i); reset(); }));
+  prev.addEventListener('click', () => { goTo(cur - 1); reset(); });
+  next.addEventListener('click', () => { goTo(cur + 1); reset(); });
+
+  start();
+})();
 
 </script>
 
