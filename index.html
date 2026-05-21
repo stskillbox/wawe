@@ -59,7 +59,7 @@ img { display: block; max-width: 100%; }
 .section {
   position: relative;
   border-top: 1px solid var(--line);
-  padding: 96px 64px;
+  padding: 80px 64px;
 }
 
 .section::before {
@@ -97,20 +97,12 @@ img { display: block; max-width: 100%; }
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 24px;
+  gap: 16px;
   margin-bottom: 64px;
-  padding-bottom: 24px;
-  border-bottom: 1px solid var(--line);
 }
 
 .section-tag {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: none;
 }
 
 .section-tag .dash {
@@ -121,12 +113,13 @@ img { display: block; max-width: 100%; }
 
 .section-title {
   font-family: var(--font-head);
-  font-weight: 800;
-  font-size: clamp(48px, 6vw, 96px);
+  font-weight: 500;
+  font-size: clamp(28px, 4vw, 56px);
   line-height: 0.9;
   letter-spacing: -0.04em;
   color: var(--primary);
   text-align: center;
+  text-transform: uppercase;
 }
 
 .section-title em {
@@ -473,19 +466,16 @@ img { display: block; max-width: 100%; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 420px;
-  border-top: 1px solid var(--line);
   margin-bottom: 40px;
 }
 
 .what-stats {
-  border-right: 1px solid var(--line);
   display: flex;
   flex-direction: column;
 }
 
 .what-stat-row {
   padding: 0 32px;
-  border-bottom: 1px solid var(--line);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -641,17 +631,16 @@ img { display: block; max-width: 100%; }
   padding-top: 0;
   padding-bottom: 0;
   overflow: hidden;
+  border-top: none;
 }
 
 .who-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border: 1px solid var(--line);
   min-height: calc(100vh - 62px);
 }
 
 .who-image-col {
-  border-right: 1px solid var(--line);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -678,7 +667,7 @@ img { display: block; max-width: 100%; }
 }
 
 .who-block:first-child {
-  border-bottom: 1px solid var(--line);
+  border-bottom: none;
 }
 
 .who-block-title {
@@ -701,13 +690,11 @@ img { display: block; max-width: 100%; }
   font-size: clamp(13px, 1.2vw, 16px);
   color: var(--text-dim);
   padding: 10px 0;
-  border-bottom: 1px solid var(--line);
   line-height: 1.4;
   display: flex;
   align-items: baseline;
 }
 
-.who-row:first-child { border-top: 1px solid var(--line); }
 .who-row--us { color: var(--primary); }
 
 .who-marker {
@@ -734,14 +721,10 @@ img { display: block; max-width: 100%; }
   font-size: clamp(13px, 1.2vw, 16px);
   color: var(--text-dim);
   padding: 10px 0;
-  border-bottom: 1px solid var(--line);
   line-height: 1.5;
   display: flex;
   align-items: baseline;
 }
-
-.who-benefit-row:first-child { border-top: 1px solid var(--line); }
-.who-benefit-row:last-child { border-bottom: none; }
 
 /* Staggered slide-in when layout enters viewport */
 .who-list-simple .who-row,
@@ -770,7 +753,7 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 900px) {
   .who-layout { grid-template-columns: 1fr; min-height: auto; }
-  .who-image-col { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 24px; }
+  .who-image-col { padding: 32px 24px; }
   .who-block { padding: 28px 24px; }
 }
 
@@ -921,8 +904,7 @@ img { display: block; max-width: 100%; }
   letter-spacing: 0.04em;
   text-transform: uppercase;
   margin-top: 12px;
-  border: 1px solid var(--line);
-  padding: 6px 12px;
+  padding: 6px 0;
 }
 
 .route-creature {
@@ -966,8 +948,8 @@ img { display: block; max-width: 100%; }
 .values-stage {
   position: relative;
   width: 100%;
-  max-width: 460px;
-  margin: 120px auto;
+  max-width: 600px;
+  margin: 0 auto;
   aspect-ratio: 1;
 }
 
@@ -979,15 +961,17 @@ img { display: block; max-width: 100%; }
 }
 
 .values-fish img {
-  width: 100%;
+  width: 140%;
   height: auto;
-  transform: scaleX(-1);
-  animation: rotate-fish 28s linear infinite reverse;
+  animation: rotate-fish 36s linear infinite reverse;
 }
 
 @keyframes rotate-fish {
-  from { transform: scaleX(-1) rotate(0deg); }
-  to   { transform: scaleX(-1) rotate(360deg); }
+  0%   { transform: scaleX(-1) rotate(0deg)   scale(1);    }
+  25%  { transform: scaleX(-1) rotate(90deg)  scale(1.05); }
+  50%  { transform: scaleX(-1) rotate(180deg) scale(1);    }
+  75%  { transform: scaleX(-1) rotate(270deg) scale(1.05); }
+  100% { transform: scaleX(-1) rotate(360deg) scale(1);    }
 }
 
 .values-ring {
@@ -1093,6 +1077,46 @@ img { display: block; max-width: 100%; }
   color: var(--neutral);
 }
 
+.values-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.values-center-word {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(19px, 2.3vw, 29px);
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(255,255,255,0.2);
+  transition: color 0.4s ease, text-shadow 0.4s ease;
+}
+
+.values-center-word:nth-child(1) { animation: word-glow 8s 0s   infinite; }
+.values-center-word:nth-child(2) { animation: word-glow 8s 2s   infinite; }
+.values-center-word:nth-child(3) { animation: word-glow 8s 4s   infinite; }
+.values-center-word:nth-child(4) { animation: word-glow 8s 6s   infinite; }
+
+@keyframes word-glow {
+  0%, 20%, 100% {
+    color: rgba(255,255,255,0.2);
+    text-shadow: none;
+  }
+  10% {
+    color: var(--primary);
+    text-shadow: 0 0 24px rgba(231,240,175,0.7);
+  }
+}
+
 @media (max-width: 900px) {
   .values-word.left, .values-word.right {
     position: static;
@@ -1115,6 +1139,43 @@ img { display: block; max-width: 100%; }
 }
 
 .values-mobile-words { display: none; }
+
+.section::before, .section::after { display: none; }
+.nav { display: none; }
+#partners { border-top: none; padding-top: 0; }
+.hero::before, .hero::after { display: none; }
+.hero-corner { display: none; }
+.hero { border-bottom: none; }
+#what.section { border-top: none; background: var(--bg); }
+
+.partners-layout {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+}
+
+.partner-simple {
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.partner-ship-col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  position: relative;
+}
+
+.partner-ship-col img {
+  width: 180px;
+  height: auto;
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  animation: ship-float 7s ease-in-out infinite;
+}
 @media (max-width: 600px) {
   .values-stage { max-width: 320px; aspect-ratio: 1; }
   .values-word.top, .values-word.bottom-word { display: none; }
@@ -1339,6 +1400,37 @@ img { display: block; max-width: 100%; }
   .partner { padding: 36px 24px; min-height: 280px; }
 }
 
+/* ============== MANIFESTO ============== */
+.manifesto-block {
+  padding: 20px 0 80px;
+}
+
+.manifesto-main,
+.manifesto-route,
+.manifesto-tagline {
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: clamp(18px, 2.2vw, 34px);
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--neutral);
+  margin-bottom: 0;
+}
+
+.manifesto-main em {
+  font-style: normal;
+  color: var(--primary);
+}
+
+.manifesto-route {
+  color: rgba(255,255,255,0.45);
+}
+
+.manifesto-tagline {
+  color: rgba(255,255,255,0.28);
+}
+
 /* ============== FORM ============== */
 .form-grid {
   display: grid;
@@ -1533,22 +1625,12 @@ a.value:hover { color: var(--primary); }
 
 /* ============== FOOTER ============== */
 .footer {
-  border-top: 1px solid var(--line);
   background: var(--bg);
   padding: 80px 64px 32px;
   position: relative;
 }
 
-.footer::before, .footer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background: var(--line);
-}
-.footer::before { left: 64px; }
-.footer::after { right: 64px; }
+.footer::before, .footer::after { display: none; }
 
 .footer-inner {
   max-width: 1280px;
@@ -1571,21 +1653,39 @@ a.value:hover { color: var(--primary); }
 
 .footer-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--line);
-  border-left: 1px solid var(--line);
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 32px 0;
+  border-top: 1px solid var(--line-strong);
+  position: relative;
+}
+
+.footer-row::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: var(--line-strong);
+}
+
+.footer-cell-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer-cell-right {
+  display: flex;
+  gap: 64px;
+  padding-left: 48px;
 }
 
 .footer-cell {
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  padding: 24px 28px;
-  min-height: 110px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 8px;
+  gap: 4px;
 }
 
 .footer-cell .label {
@@ -1878,7 +1978,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- PROGRAM — zigzag with ship -->
 <!-- ====================================================================== -->
-<section class="section" id="program">
+<section class="section" id="program" style="border-top:none;">
   <div class="section-inner">
     <div class="section-head">
       <div class="section-tag"><span class="dash"></span>03 / Расписание</div>
@@ -1960,29 +2060,19 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- VALUES — rotating fish circle with words around -->
 <!-- ====================================================================== -->
-<section class="section" id="values" style="overflow:hidden;">
+<section class="section" id="values" style="overflow:hidden; border-top:none;">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>04 / Ценности</div>
-      <h2 class="section-title">Три кита <em>Цифрохода</em></h2>
-    </div>
-
     <div class="values-stage">
-      <div class="values-ring outer"></div>
-      <div class="values-ring inner"></div>
-      <div class="values-orbit">
-        <span class="values-orbit-dot lg"></span>
-        <span class="values-orbit-dot sm"></span>
-      </div>
-
       <div class="values-fish">
-        <img src="fish.png" alt="">
+        <img src="fish-circles.png" alt="">
       </div>
 
-      <span class="values-word top">Путешествие</span>
-      <span class="values-word left">Смыслы</span>
-      <span class="values-word right">Дружба</span>
-      <span class="values-word bottom-word">ERP</span>
+      <div class="values-center">
+        <span class="values-center-word active">Путешествие</span>
+        <span class="values-center-word">Смыслы</span>
+        <span class="values-center-word">Дружба</span>
+        <span class="values-center-word">ERP</span>
+      </div>
     </div>
 
     <div class="values-mobile-words">
@@ -1995,53 +2085,17 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 </section>
 
 <!-- ====================================================================== -->
-<!-- ABOUT — uneven grid -->
+<!-- MANIFESTO — big text -->
 <!-- ====================================================================== -->
-<section class="section" id="about">
+<section class="section" id="about" style="border-top:none; padding-top:40px; padding-bottom:40px;">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>05 / Детали</div>
-      <h2 class="section-title">На теплоходе <em>музыка</em> и… мы</h2>
-    </div>
-
-    <div class="about-grid">
-      <div class="about-cell about-big">
-        <h3>Проплывём<br>маршрут по Неве<br>из Петербурга<br>в Петергоф —<br>и <em>назад</em>.</h3>
-      </div>
-
-      <div class="about-cell about-quote-cell">
-        <div class="cell-label">Манифест</div>
-        <div class="q">На судне всё включено: гостеприимство, приятные попутчики и щедрые порции кулебяк из лосося от шеф-повара.</div>
-      </div>
-
-      <div class="about-cell detail-1">
-        <div class="cell-label">Дата</div>
-        <div class="cell-value">17 июля 2026<br>Пятница</div>
-      </div>
-
-      <div class="about-cell detail-2">
-        <div class="cell-label">Маршрут</div>
-        <div class="cell-value">СПб → Петергоф → СПб</div>
-      </div>
-
-      <div class="about-cell detail-3">
-        <div class="cell-label">Длительность</div>
-        <div class="cell-value">11 часов на воде</div>
-      </div>
-
-      <div class="about-cell detail-4">
-        <div class="cell-label">Дресс-код</div>
-        <div class="cell-value">Smart casual</div>
-      </div>
-
-      <div class="about-cell about-cta-cell">
-        <h4>Готовы<br>отчалить?</h4>
-        <a href="#form" class="btn btn-primary">
-          Подтвердить участие
-          <span class="arrow">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </a>
+    <div class="manifesto-block">
+      <div class="manifesto-main reveal">
+        На теплоходе <em>музыка и… мы.</em><br>
+        Проплывём маршрут<br>
+        по Неве из Петербурга<br>
+        в Петергоф — и назад.<br>
+        <span style="color:rgba(255,255,255,0.28);">На судне всё включено: гостеприимство, приятные попутчики, щедрые порции кулебяк из лосося от шеф-повара и калорийная программа.</span>
       </div>
     </div>
   </div>
@@ -2050,46 +2104,30 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- PARTNERS -->
 <!-- ====================================================================== -->
-<section class="section" id="partners">
+<section class="section" id="partners" style="border-top:none;">
   <div class="section-inner">
-    <div class="section-head">
-      <div class="section-tag"><span class="dash"></span>06 / Поддержка</div>
-      <h2 class="section-title">Генеральные партнёры</h2>
-    </div>
-
-    <div class="partners-grid">
-      <div class="partner">
+    <h2 class="section-title" style="margin-bottom:32px;">Генеральные партнёры<br>Цифрохода</h2>
+    <div class="partners-layout">
+      <div class="partner-simple reveal">
         <div class="partner-logo">
           <img src="partner-gazprom.png" alt="Газпром" class="partner-logo-img gazprom">
         </div>
-        <div class="partner-info">
-          <div class="partner-role">Генеральный партнёр · 01</div>
-          <p class="partner-desc">
-            Разработка и внедрение ИТ-продуктов для крупного бизнеса. Полный цикл: от анализа до запуска и поддержки. Промышленность и ТЭК — там, где важны надёжность и непрерывность процессов.
-          </p>
-        </div>
-        <div class="partner-tags">
-          <span class="partner-tag">ERP</span>
-          <span class="partner-tag">ТОиР</span>
-          <span class="partner-tag">Производство</span>
-          <span class="partner-tag">ТЭК</span>
-        </div>
+        <p class="partner-desc">
+          ООО «Газпромнефть – Цифровые решения» разрабатывает и внедряет ИТ-продукты для крупного бизнеса. Берём на себя полный цикл: от анализа до запуска и поддержки. Работаем с промышленностью и ТЭК, где важны надёжность и непрерывность процессов. Делаем системы для управления производством, ТОиР, мониторинга оборудования и цепочек поставок. Автоматизируем процессы и связываем системы между собой.
+        </p>
       </div>
-      <div class="partner">
+
+      <div class="partner-ship-col">
+        <img src="ship.svg" alt="">
+      </div>
+
+      <div class="partner-simple reveal">
         <div class="partner-logo">
           <img src="partner-t1.svg" alt="Т1" class="partner-logo-img t1">
         </div>
-        <div class="partner-info">
-          <div class="partner-role">Генеральный партнёр · 02</div>
-          <p class="partner-desc">
-            Системы для управления производством, мониторинга оборудования и цепочек поставок. Автоматизация процессов и связывание систем между собой для крупнейших промышленных заказчиков.
-          </p>
-        </div>
-        <div class="partner-tags">
-          <span class="partner-tag">Логистика</span>
-          <span class="partner-tag">MES</span>
-          <span class="partner-tag">Аналитика</span>
-        </div>
+        <p class="partner-desc">
+          Системы для управления производством, мониторинга оборудования и цепочек поставок. Автоматизация процессов и связывание систем между собой для крупнейших промышленных заказчиков.
+        </p>
       </div>
     </div>
   </div>
@@ -2098,7 +2136,7 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <!-- ====================================================================== -->
 <!-- FORM -->
 <!-- ====================================================================== -->
-<section class="section" id="form">
+<section class="section" id="form" style="border-top:none;">
   <div class="section-inner">
     <div class="section-head" style="grid-template-columns: 1fr; text-align: center;">
       <div class="section-tag" style="justify-content: center;"><span class="dash"></span>07 / Регистрация</div>
@@ -2146,17 +2184,19 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 <footer class="footer">
   <div class="footer-inner">
     <div class="footer-row">
-      <div class="footer-cell">
+      <div class="footer-cell-left">
         <span class="label">Дата</span>
         <span class="value">17 июля 2026</span>
       </div>
-      <div class="footer-cell">
-        <span class="label">Телефон</span>
-        <a class="value" href="tel:+79627182580">+7 962 718-25-80</a>
-      </div>
-      <div class="footer-cell">
-        <span class="label">E-mail</span>
-        <a class="value" href="mailto:masha@cifrohod.ru">masha@cifrohod.ru</a>
+      <div class="footer-cell-right">
+        <div class="footer-cell">
+          <span class="label">Телефон</span>
+          <a class="value" href="tel:+79627182580">+7 962 718-25-80</a>
+        </div>
+        <div class="footer-cell">
+          <span class="label">E-mail</span>
+          <a class="value" href="mailto:masha@cifrohod.ru">masha@cifrohod.ru</a>
+        </div>
       </div>
     </div>
 
@@ -2590,7 +2630,7 @@ function handleSubmit(e) {
   }, 3000);
 }
 
-// What section slider
+// ============== PHOTO SLIDER ==============
 (function () {
   const slides = document.querySelectorAll('.what-slide');
   const dots   = document.querySelectorAll('.what-dot');
@@ -2616,6 +2656,7 @@ function handleSubmit(e) {
 
   start();
 })();
+
 </script>
 
 </body>
