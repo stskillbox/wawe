@@ -223,9 +223,7 @@ img { display: block; max-width: 100%; }
 .hero {
   position: relative;
   min-height: 100vh;
-  background:
-    radial-gradient(circle at 50% 20%, rgba(255,253,192,0.04), transparent 24%),
-    linear-gradient(to bottom, #121212 0%, #0d0d0d 56%, #090909 100%);
+  background: #0d0d0d;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -332,25 +330,32 @@ img { display: block; max-width: 100%; }
   pointer-events: none;
   z-index: 1;
   overflow: hidden;
+  transform: scaleX(-1);
 }
 
 .hero-waves-svg {
   position: absolute;
-  left: -14%;
-  top: -5%;
-  height: 118%;
+  right: calc(-18% - 20px);
+  top: 55%;
+  height: 95%;
   width: auto;
   max-width: none;
-  opacity: 0.88;
-  /* fade right edge softly — text disappears before hitting center title */
-  -webkit-mask-image: linear-gradient(to right, black 0%, black 38%, transparent 66%);
-  mask-image:         linear-gradient(to right, black 0%, black 38%, transparent 66%);
-  animation: wave-drift-left 22s ease-in-out infinite;
+  opacity: 0.85;
+  transform: translateY(-50%) rotate(14deg);
+  -webkit-mask-image:
+    linear-gradient(to left, transparent 0%, black 12%, black 60%, transparent 100%),
+    radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
+  mask-image:
+    linear-gradient(to left, transparent 0%, black 12%, black 60%, transparent 100%),
+    radial-gradient(ellipse at 70% 50%, black 0%, black 55%, transparent 90%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+  animation: wave-drift-left 16s ease-in-out infinite;
 }
 
 @keyframes wave-drift-left {
-  0%, 100% { transform: translateX(0)    scale(1);    }
-  50%       { transform: translateX(-18px) scale(1.012); }
+  0%, 100% { transform: translateY(-50%) rotate(14deg) translateX(0);     }
+  50%       { transform: translateY(-50%) rotate(14deg) translateX(-18px); }
 }
 
 @media (max-width: 900px) {
@@ -1672,35 +1677,6 @@ a.value:hover { color: var(--primary); }
   inset: 0;
 }
 
-/* golden sweep on hover */
-.hero-motion-group::after {
-  content: '';
-  position: absolute;
-  top: -20%;
-  left: 0;
-  width: 55%;
-  height: 140%;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(231, 240, 175, 0.08) 25%,
-    rgba(255, 252, 190, 0.32) 50%,
-    rgba(231, 240, 175, 0.08) 75%,
-    transparent 100%
-  );
-  transform: skewX(-14deg) translateX(-120%);
-  pointer-events: none;
-  mix-blend-mode: screen;
-}
-
-.hero-motion-group:hover::after {
-  animation: ship-sheen 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-@keyframes ship-sheen {
-  from { transform: skewX(-14deg) translateX(-120%); }
-  to   { transform: skewX(-14deg) translateX(260%); }
-}
 
 @keyframes hero-fade-up {
   from { opacity: 0; transform: translateY(14px); }
@@ -1745,22 +1721,6 @@ window.__TWEAKS_DEFAULTS = /*EDITMODE-BEGIN*/{
 </script>
 
 <!-- NAV -->
-<nav class="nav">
-  <a href="#hero" class="nav-logo" aria-label="Цифроход">
-    <img src="logo-cropped.png" alt="Цифроход" style="height:20px;">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#what">01 / Формат</a></li>
-    <li><a href="#who">02 / Участники</a></li>
-    <li><a href="#program">03 / Маршрут</a></li>
-    <li><a href="#values">04 / Ценности</a></li>
-    <li><a href="#partners">05 / Партнёры</a></li>
-  </ul>
-  <a href="#form" class="nav-cta">
-    Участвовать
-    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7 L11 7 M7 3 L11 7 L7 11" stroke="#0D0D0D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </a>
-</nav>
 
 <!-- ====================================================================== -->
 <!-- HERO -->
